@@ -8,6 +8,12 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "packageManager": "npm@10.5.2",
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom",
+    "next": "$next"
+  },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "class-variance-authority": "^0.7.1",
