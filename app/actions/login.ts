@@ -1,17 +1,20 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const schema = z.object({
   email: z.string().email().trim(),
   password: z.string().trim(),
+  redirectUrl: z.string().trim(),
 });
 
 export default async function loginUser(prevState: any, formData: FormData) {
   const validatedFields = schema.safeParse({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
+    redirectUrl: formData.get("redirectUrl") as string,
   });
 
   if (!validatedFields.success) {
@@ -30,7 +33,16 @@ export default async function loginUser(prevState: any, formData: FormData) {
     const data = await res.json();
 
     if (res.ok) {
-      redirect("/admin");
+      const cookieStore = await cookies();
+      cookieStore.set("tulparToken", data.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        value: data.token,
+        maxAge: 3600,
+        sameSite: "strict",
+      });
+
+      redirect(decodeURIComponent(validatedFields.data.redirectUrl));
     } else {
       return {
         errors: {

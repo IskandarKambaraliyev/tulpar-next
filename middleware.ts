@@ -15,49 +15,41 @@ async function verifyJWT(token: string, secret: string) {
 }
 
 export async function middleware(req: NextRequest) {
+  console.log("Middleware triggered:", req.nextUrl.pathname);
+
   if (!SECRET_KEY) {
     console.error("JWT secret is not set");
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${req.nextUrl.pathname}`, req.url)
+    );
   }
 
   const token = req.cookies.get("tulparToken")?.value;
 
-  if (req.nextUrl.pathname.startsWith("/admin")) {
-    if (!token) {
-      console.log("No token found");
-      return NextResponse.redirect(
-        new URL(
-          `/login?redirect=${encodeURIComponent(req.nextUrl.pathname)}`,
-          req.url
-        )
-      );
-    }
-
-    const decoded = await verifyJWT(token, SECRET_KEY);
-
-    if (!decoded) {
-      console.log("Token verification failed");
-      return NextResponse.redirect(
-        new URL(
-          `/login?redirect=${encodeURIComponent(req.nextUrl.pathname)}`,
-          req.url
-        )
-      );
-    }
-
-    if (!decoded.isAdmin) {
-      console.log("User is not an admin");
-      return NextResponse.redirect(
-        new URL(
-          `/login?redirect=${encodeURIComponent(req.nextUrl.pathname)}`,
-          req.url
-        )
-      );
-    }
-
-    console.log("Decoded payload:", decoded);
+  if (!token) {
+    console.log("No token found");
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${req.nextUrl.pathname}`, req.url)
+    );
   }
 
+  const decoded = await verifyJWT(token, SECRET_KEY);
+
+  if (!decoded) {
+    console.log("Token verification failed");
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${req.nextUrl.pathname}`, req.url)
+    );
+  }
+
+  if (!decoded.isAdmin) {
+    console.log("User is not an admin");
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${req.nextUrl.pathname}`, req.url)
+    );
+  }
+
+  console.log("Decoded payload:", decoded);
   return NextResponse.next();
 }
 

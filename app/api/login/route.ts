@@ -36,14 +36,7 @@ export async function POST(req: Request) {
     { expiresIn: "1h" }
   );
 
-  const response = NextResponse.json({ message: "Login successful" });
-
-  response.cookies.set("tulparToken", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 3600,
-  });
+  const response = NextResponse.json({ message: "Login successful", token });
 
   return response;
 }

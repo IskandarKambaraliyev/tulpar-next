@@ -1,6 +1,7 @@
 "use client";
 
 import loginUser from "@/app/actions/login";
+import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
@@ -20,6 +21,9 @@ const initialState = {
 };
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/admin";
+
   const [state, formAction] = useActionState(loginUser, initialState);
 
   return (
@@ -65,6 +69,8 @@ export default function LoginPage() {
               </span>
             )}
         </div>
+
+        <input type="hidden" name="redirectUrl" defaultValue={redirectUrl} />
 
         {"form" in state.errors && state.errors.form.length > 0 && (
           <span className="text-red-500" aria-live="polite">
