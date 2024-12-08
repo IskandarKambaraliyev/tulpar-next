@@ -9,10 +9,9 @@ const getServices = unstable_cache(
       select: {
         id: true,
         title: true,
-        description: true,
-        image: true,
+        slug: true,
       },
-      take: 2,
+      take: 3,
     });
   },
   ["services"],

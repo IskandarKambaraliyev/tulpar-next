@@ -15,7 +15,6 @@ export async function POST(req: Request) {
   }
 
   const { email, password } = await req.json();
-
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user || !user.isAdmin) {
@@ -38,6 +37,7 @@ export async function POST(req: Request) {
   );
 
   const response = NextResponse.json({ message: "Login successful" });
+
   response.cookies.set("tulparToken", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
