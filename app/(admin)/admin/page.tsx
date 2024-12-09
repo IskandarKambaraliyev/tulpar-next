@@ -9,6 +9,9 @@ export default async function AdminPage() {
       slug: true,
     },
     take: 4,
+    orderBy: {
+      order: "asc",
+    },
   });
 
   const servicesCount = await prisma.service.count();
@@ -20,12 +23,18 @@ export default async function AdminPage() {
       slug: true,
     },
     take: 4,
+    orderBy: {
+      order: "asc",
+    },
   });
 
   const specialistsCount = await prisma.specialists.count();
 
   const priceList = await prisma.priceList.findMany({
     take: 4,
+    orderBy: {
+      order: "asc",
+    },
   });
 
   const priceListCount = prisma.priceList.count();
