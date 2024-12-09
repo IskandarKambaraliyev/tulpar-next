@@ -22,6 +22,7 @@ model Specialists {
   specialty  String
   career     String
   experience String
+  order      Int
   createdAt  DateTime @default(now())
 }
 
@@ -29,6 +30,7 @@ model PriceList {
   id        String   @id @default(cuid())
   name      String   @unique
   price     String
+  order     Int
   createdAt DateTime @default(now())
 
   // Connecting PriceList to Services through a relation
@@ -43,6 +45,7 @@ model Service {
   image            String
   additional_image String?
   content          String
+  order            Int
   createdAt        DateTime @default(now())
 
   // Connecting Services to PriceList
@@ -54,6 +57,7 @@ model Reports {
   title     String
   src       String
   is_video  Boolean  @default(false)
+  order     Int
   createdAt DateTime @default(now())
 }
 
@@ -65,6 +69,7 @@ model NewsAndTips {
   description String
   content     String
   is_tip      Boolean  @default(false)
+  order       Int
   createdAt   DateTime @default(now())
 }
 
@@ -72,6 +77,7 @@ model QuestionAnswers {
   id        String   @id @default(cuid())
   question  String
   answer    String
+  order     Int
   createdAt DateTime @default(now())
 }
 

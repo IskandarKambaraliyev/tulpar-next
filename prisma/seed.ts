@@ -25,6 +25,7 @@ async function main() {
         <li>Developed community outreach programs promoting heart health.</li>
         <li>Recipient of the "Excellence in Cardiology" award in 2021.</li>
       </ul>`,
+      order: 0,
     },
     {
       slug: "dr-jane-smith",
@@ -46,6 +47,7 @@ async function main() {
         <li>Developed personalized treatment plans for over 10,000 patients.</li>
         <li>Awarded "Best Dermatologist" in the region for five consecutive years.</li>
       </ul>`,
+      order: 1,
     },
     {
       slug: "dr-michael-jones",
@@ -67,6 +69,7 @@ async function main() {
         <li>Conducted nutrition workshops for over 1,000 individuals.</li>
         <li>Hosts a popular podcast on nutrition and health topics.</li>
       </ul>`,
+      order: 2,
     },
     {
       slug: "dr-emily-clark",
@@ -88,6 +91,7 @@ async function main() {
         <li>Developed innovative rehabilitation protocols for post-surgical recovery.</li>
         <li>Recipient of the "Outstanding Orthopedic Surgeon" award in 2020.</li>
       </ul>`,
+      order: 3,
     },
     {
       slug: "dr-susan-lee",
@@ -109,6 +113,7 @@ async function main() {
       <li>Conducted community health programs focused on child wellness.</li>
       <li>Recipient of the "Outstanding Pediatrician" award in 2019.</li>
       </ul>`,
+      order: 4,
     },
     {
       slug: "dr-david-wilson",
@@ -130,6 +135,7 @@ async function main() {
       <li>Developed patient education programs for neurological conditions.</li>
       <li>Recipient of the "Excellence in Neurology" award in 2022.</li>
       </ul>`,
+      order: 5,
     },
     {
       slug: "dr-linda-brown",
@@ -151,6 +157,7 @@ async function main() {
       <li>Conducted community outreach programs on diabetes prevention.</li>
       <li>Recipient of the "Top Endocrinologist" award in 2021.</li>
       </ul>`,
+      order: 6,
     },
   ];
 
@@ -180,11 +187,12 @@ async function main() {
       `,
       priceList: {
         create: [
-          { name: "Initial Consultation", price: "3000/hour" },
-          { name: "Follow-up Consultation", price: "2000/hour" },
-          { name: "ECG Test", price: "1500/test" },
+          { name: "Initial Consultation", price: "3000/hour", order: 0 },
+          { name: "Follow-up Consultation", price: "2000/hour", order: 1 },
+          { name: "ECG Test", price: "1500/test", order: 2 },
         ],
       },
+      order: 0,
       createdAt: new Date(),
     },
     {
@@ -204,10 +212,11 @@ async function main() {
       `,
       priceList: {
         create: [
-          { name: "Weekly Program", price: "5000/week" },
-          { name: "Monthly Program", price: "18000/month" },
+          { name: "Weekly Program", price: "5000/week", order: 3 },
+          { name: "Monthly Program", price: "18000/month", order: 4 },
         ],
       },
+      order: 1,
       createdAt: new Date(),
     },
     {
@@ -227,11 +236,12 @@ async function main() {
       `,
       priceList: {
         create: [
-          { name: "CT Scan", price: "7000/scan" },
-          { name: "MRI", price: "12000/scan" },
-          { name: "Stress Test", price: "4000/test" },
+          { name: "CT Scan", price: "7000/scan", order: 5 },
+          { name: "MRI", price: "12000/scan", order: 6 },
+          { name: "Stress Test", price: "4000/test", order: 7 },
         ],
       },
+      order: 2,
       createdAt: new Date(),
     },
     {
@@ -251,10 +261,11 @@ async function main() {
       `,
       priceList: {
         create: [
-          { name: "Initial Consultation", price: "2000/hour" },
-          { name: "Follow-up Session", price: "1500/hour" },
+          { name: "Initial Consultation", price: "2000/hour", order: 8 },
+          { name: "Follow-up Session", price: "1500/hour", order: 9 },
         ],
       },
+      order: 3,
       createdAt: new Date(),
     },
     {
@@ -274,11 +285,12 @@ async function main() {
       `,
       priceList: {
         create: [
-          { name: "Initial Consultation", price: "2500/hour" },
-          { name: "Follow-up Consultation", price: "1500/hour" },
-          { name: "Skin Biopsy", price: "2000/test" },
+          { name: "Initial Consultation", price: "2500/hour", order: 10 },
+          { name: "Follow-up Consultation", price: "1500/hour", order: 11 },
+          { name: "Skin Biopsy", price: "2000/test", order: 12 },
         ],
       },
+      order: 4,
       createdAt: new Date(),
     },
     {
@@ -298,10 +310,11 @@ async function main() {
       `,
       priceList: {
         create: [
-          { name: "Laser Treatment", price: "3000/session" },
-          { name: "Package of 5 Sessions", price: "12000/package" },
+          { name: "Laser Treatment", price: "3000/session", order: 13 },
+          { name: "Package of 5 Sessions", price: "12000/package", order: 14 },
         ],
       },
+      order: 5,
       createdAt: new Date(),
     },
     {
@@ -322,10 +335,11 @@ async function main() {
       `,
       priceList: {
         create: [
-          { name: "Botox Injection", price: "5000/session" },
-          { name: "Package of 3 Sessions", price: "12000/package" },
+          { name: "Botox Injection", price: "5000/session", order: 15 },
+          { name: "Package of 3 Sessions", price: "12000/package", order: 16 },
         ],
       },
+      order: 6,
       createdAt: new Date(),
     },
   ];
@@ -337,7 +351,11 @@ async function main() {
         priceList: {
           connectOrCreate: service.priceList.create.map((price) => ({
             where: { name: price.name },
-            create: { name: price.name, price: price.price },
+            create: {
+              name: price.name,
+              price: price.price,
+              order: price.order,
+            },
           })),
         },
       },
@@ -349,60 +367,70 @@ async function main() {
       title: "Annual Report 2021",
       src: "/images/reports/",
       is_video: false,
+      order: 0,
       createdAt: new Date(),
     },
     {
       title: "Quarterly Report Q2 2021",
       src: "/images/reports/",
       is_video: false,
+      order: 1,
       createdAt: new Date(),
     },
     {
       title: "Financial Report 2020",
       src: "/images/reports/",
       is_video: false,
+      order: 2,
       createdAt: new Date(),
     },
     {
       title: "Company Overview Video",
       src: "/images/reports/",
       is_video: true,
+      order: 3,
       createdAt: new Date(),
     },
     {
       title: "Annual Report 2022",
       src: "/images/reports/",
       is_video: false,
+      order: 4,
       createdAt: new Date(),
     },
     {
       title: "Quarterly Report Q1 2022",
       src: "/images/reports/",
       is_video: false,
+      order: 5,
       createdAt: new Date(),
     },
     {
       title: "Sustainability Report 2021",
       src: "/images/reports/",
       is_video: false,
+      order: 6,
       createdAt: new Date(),
     },
     {
       title: "Employee Engagement Survey 2021",
       src: "/images/reports/",
       is_video: false,
+      order: 7,
       createdAt: new Date(),
     },
     {
       title: "Market Analysis Report 2022",
       src: "/images/reports/",
       is_video: false,
+      order: 8,
       createdAt: new Date(),
     },
     {
       title: "Product Launch Video",
       src: "/images/reports/",
       is_video: true,
+      order: 9,
       createdAt: new Date(),
     },
   ];
@@ -464,6 +492,7 @@ async function main() {
           <p>By adopting these heart-healthy lifestyle habits, you can reduce your risk of heart disease and live a long, healthy life. Remember, it's never too late to start making healthy changes, and every small step counts toward improving your heart health. Whether you're just beginning your journey or have already made positive changes, continue to prioritize your heart health and make it a lifelong commitment.</p>
         `,
       is_tip: true,
+      order: 0,
       createdAt: new Date(),
     },
     {
@@ -508,6 +537,7 @@ async function main() {
         <p>Improving sleep quality requires making conscious lifestyle changes and creating a sleep-friendly environment. By following these tips, you can improve your sleep, boost your energy levels, and enhance your overall health. Remember that good sleep is an essential part of maintaining a healthy body and mind, so make it a priority in your life.</p>
       `,
       is_tip: false,
+      order: 1,
       createdAt: new Date(),
     },
     {
@@ -559,6 +589,7 @@ async function main() {
         <p>Mental health is an integral part of overall well-being. It influences every aspect of our lives, from our ability to work and study to how we interact with others. By understanding the importance of mental health and taking steps to improve it, we can lead happier, healthier, and more productive lives. Remember, taking care of your mental health is just as important as taking care of your physical health, and it’s never too late to seek help if you need it.</p>
       `,
       is_tip: true,
+      order: 2,
       createdAt: new Date(),
     },
     {
@@ -600,6 +631,7 @@ async function main() {
         <p>The discovery of this new treatment for heart disease is a significant milestone in medical research. While further trials are needed, the potential for improving outcomes for heart disease patients is immense. As researchers continue to refine the treatment and test its effectiveness, the global medical community is hopeful that this breakthrough will lead to a healthier future for those affected by heart disease.</p>
       `,
       is_tip: false,
+      order: 3,
       createdAt: new Date(),
     },
     {
@@ -645,6 +677,7 @@ async function main() {
         <p>This breakthrough in cancer treatment is a monumental step forward in the fight against one of humanity's most formidable foes. While the journey to making this treatment widely available may take years, the results so far are incredibly promising. Cancer patients, doctors, and researchers alike are all hopeful that this discovery will lead to a future where cancer is no longer a death sentence, but a treatable, manageable condition.</p>
       `,
       is_tip: false,
+      order: 4,
       createdAt: new Date(),
     },
   ];
@@ -672,6 +705,7 @@ async function main() {
         </ol>
         <p>Once your appointment is confirmed, you will receive an email with the details. If you need to cancel or reschedule, you can do so directly through the website or by contacting our reception.</p>
       `,
+      order: 0,
       createdAt: new Date(),
     },
     {
@@ -687,6 +721,7 @@ async function main() {
         </ul>
         <p>We also offer specialized services in cardiology, rehabilitation, diagnostic imaging, and much more. To learn more about each service, visit the "Our Services" page on our website.</p>
       `,
+      order: 1,
       createdAt: new Date(),
     },
     {
@@ -701,6 +736,7 @@ async function main() {
         </ul>
         <p>Bringing these items will help us to provide you with the best care and ensure that your first visit is as smooth as possible.</p>
       `,
+      order: 2,
       createdAt: new Date(),
     },
     {
@@ -714,6 +750,7 @@ async function main() {
         </ol>
         <p>We kindly ask that you cancel or reschedule at least 24 hours in advance to avoid any cancellation fees and to allow other patients to take the available slot.</p>
       `,
+      order: 3,
       createdAt: new Date(),
     },
   ];
