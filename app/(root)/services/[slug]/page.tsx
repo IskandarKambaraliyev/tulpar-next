@@ -28,7 +28,6 @@ export default async function ServiceDetailPage({
       slug,
     },
   });
-  console.log(service);
 
   if (!service) {
     throw new Error("Service not found");

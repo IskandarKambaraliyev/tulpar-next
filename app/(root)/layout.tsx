@@ -26,7 +26,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header services={services} />
-      <main className="min-h-[200vh]">{children}</main>
+      <main className="">{children}</main>
     </>
   );
 }

@@ -4,171 +4,6 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const specialists = [
-    {
-      slug: "dr-john-doe",
-      name: "Dr. John Doe",
-      image: "/images/specialists/",
-      job_title: "Cardiologist",
-      specialty:
-        "Specializes in diagnosing and treating heart diseases, with expertise in minimally invasive cardiac procedures and preventive cardiology.",
-      career: `<p>Dr. John Doe has over two decades of experience in the field of cardiology, working in some of the most reputed hospitals in the country. He earned his medical degree from Harvard Medical School, followed by a residency at the Johns Hopkins Hospital. Over the years, Dr. Doe has been instrumental in developing innovative techniques for diagnosing and treating cardiovascular diseases, particularly focusing on patient-centric care.</p>
-      <ul>
-        <li>20+ years in clinical cardiology practice.</li>
-        <li>Conducted over 5,000 minimally invasive procedures.</li>
-        <li>Published 30+ research papers in renowned medical journals.</li>
-        <li>Serves as a guest lecturer at international cardiology conferences.</li>
-      </ul>`,
-      experience: `<p>Dr. Doe is known for his compassionate approach toward patients, ensuring that every individual receives personalized care tailored to their unique needs. His expertise spans across a wide range of cardiovascular treatments, including echocardiography, stress testing, and cardiac catheterization. He is particularly skilled in managing complex cases such as congenital heart defects and advanced heart failure.</p>
-      <ul>
-        <li>Specialist in preventive cardiology and patient education programs.</li>
-        <li>Developed community outreach programs promoting heart health.</li>
-        <li>Recipient of the "Excellence in Cardiology" award in 2021.</li>
-      </ul>`,
-      order: 0,
-    },
-    {
-      slug: "dr-jane-smith",
-      name: "Dr. Jane Smith",
-      image: "/images/specialists/",
-      job_title: "Dermatologist",
-      specialty:
-        "Expert in treating skin conditions, including acne, eczema, psoriasis, and cosmetic dermatology procedures like laser therapy and botox.",
-      career: `<p>Dr. Jane Smith is a board-certified dermatologist with 15 years of experience in both medical and cosmetic dermatology. She graduated from Stanford University School of Medicine and completed her residency at the Mayo Clinic. Dr. Smith has dedicated her career to enhancing skin health and improving her patients’ confidence through advanced dermatological treatments.</p>
-      <ul>
-        <li>15 years of clinical dermatology experience.</li>
-        <li>Pioneer in laser treatments for chronic skin conditions.</li>
-        <li>Published 20+ articles on advancements in dermatology.</li>
-        <li>Frequent speaker at global dermatology summits.</li>
-      </ul>`,
-      experience: `<p>Dr. Smith's practice combines her vast knowledge of skin conditions with state-of-the-art technology to provide top-notch care. Her commitment to patient satisfaction and education has earned her a loyal following. Whether it’s managing persistent conditions like rosacea or performing intricate cosmetic procedures, Dr. Smith ensures a seamless experience for her patients.</p>
-      <ul>
-        <li>Expert in non-invasive cosmetic procedures.</li>
-        <li>Developed personalized treatment plans for over 10,000 patients.</li>
-        <li>Awarded "Best Dermatologist" in the region for five consecutive years.</li>
-      </ul>`,
-      order: 1,
-    },
-    {
-      slug: "dr-michael-jones",
-      name: "Dr. Michael Jones",
-      image: "/images/specialists/",
-      job_title: "Nutritionist",
-      specialty:
-        "Specializes in creating personalized nutrition plans for heart health, weight management, and overall well-being.",
-      career: `<p>Dr. Michael Jones is a registered dietitian and nutritionist with a focus on cardiovascular health and disease prevention. He holds a Ph.D. in Nutritional Sciences from the University of California, Berkeley, and has conducted extensive research on the impact of diet on heart health. Dr. Jones is passionate about empowering individuals to make informed choices about their nutrition and lead healthier lives.</p>
-      <ul>
-        <li>10+ years of experience in clinical nutrition.</li>
-        <li>Published research on the role of diet in heart disease prevention.</li>
-        <li>Developed nutrition education programs for schools and communities.</li>
-        <li>Featured in national health magazines for his expertise.</li>
-      </ul>`,
-      experience: `<p>Dr. Jones takes a holistic approach to nutrition, considering each patient’s unique health goals and lifestyle factors. He provides evidence-based guidance on dietary changes that can improve heart health, manage weight, and enhance overall well-being. Dr. Jones is known for his practical advice and ongoing support to help patients achieve sustainable results.</p>
-      <ul>
-        <li>Specialist in plant-based diets for heart disease prevention.</li>
-        <li>Conducted nutrition workshops for over 1,000 individuals.</li>
-        <li>Hosts a popular podcast on nutrition and health topics.</li>
-      </ul>`,
-      order: 2,
-    },
-    {
-      slug: "dr-emily-clark",
-      name: "Dr. Emily Clark",
-      image: "/images/specialists/",
-      job_title: "Orthopedic Surgeon",
-      specialty:
-        "Expert in surgical and non-surgical treatment of musculoskeletal system disorders, including bones, joints, ligaments, tendons, and muscles.",
-      career: `<p>Dr. Emily Clark is a highly skilled orthopedic surgeon with over 12 years of experience in treating a wide range of musculoskeletal conditions. She completed her medical degree at the University of California, San Francisco, and her residency at the Hospital for Special Surgery in New York. Dr. Clark is known for her expertise in minimally invasive surgical techniques and her commitment to patient-centered care.</p>
-      <ul>
-        <li>12+ years of experience in orthopedic surgery.</li>
-        <li>Performed over 1,500 successful joint replacement surgeries.</li>
-        <li>Published 25+ research papers on orthopedic advancements.</li>
-        <li>Active member of the American Academy of Orthopedic Surgeons.</li>
-      </ul>`,
-      experience: `<p>Dr. Clark's practice focuses on providing comprehensive care for patients with orthopedic conditions. She is adept at diagnosing and treating a variety of issues, from sports injuries to degenerative diseases. Her approach combines advanced surgical techniques with personalized rehabilitation plans to ensure optimal recovery for her patients.</p>
-      <ul>
-        <li>Specialist in arthroscopic surgery and joint preservation.</li>
-        <li>Developed innovative rehabilitation protocols for post-surgical recovery.</li>
-        <li>Recipient of the "Outstanding Orthopedic Surgeon" award in 2020.</li>
-      </ul>`,
-      order: 3,
-    },
-    {
-      slug: "dr-susan-lee",
-      name: "Dr. Susan Lee",
-      image: "/images/specialists/",
-      job_title: "Pediatrician",
-      specialty:
-        "Specializes in the medical care of infants, children, and adolescents, with a focus on preventive health and developmental milestones.",
-      career: `<p>Dr. Susan Lee is a dedicated pediatrician with over 15 years of experience in child healthcare. She graduated from Yale School of Medicine and completed her residency at Boston Children's Hospital. Dr. Lee is passionate about providing comprehensive care to children and supporting their families through every stage of development.</p>
-      <ul>
-      <li>15+ years of experience in pediatric care.</li>
-      <li>Expert in childhood immunizations and preventive health.</li>
-      <li>Published numerous articles on pediatric health and nutrition.</li>
-      <li>Active member of the American Academy of Pediatrics.</li>
-      </ul>`,
-      experience: `<p>Dr. Lee's approach to pediatric care is centered around building strong relationships with her patients and their families. She emphasizes the importance of preventive care, early diagnosis, and personalized treatment plans to ensure the best outcomes for her young patients.</p>
-      <ul>
-      <li>Specialist in developmental assessments and early intervention.</li>
-      <li>Conducted community health programs focused on child wellness.</li>
-      <li>Recipient of the "Outstanding Pediatrician" award in 2019.</li>
-      </ul>`,
-      order: 4,
-    },
-    {
-      slug: "dr-david-wilson",
-      name: "Dr. David Wilson",
-      image: "/images/specialists/",
-      job_title: "Neurologist",
-      specialty:
-        "Expert in diagnosing and treating disorders of the nervous system, including epilepsy, multiple sclerosis, and neurodegenerative diseases.",
-      career: `<p>Dr. David Wilson is a board-certified neurologist with over 20 years of experience in the field. He earned his medical degree from the University of Pennsylvania and completed his residency at the Cleveland Clinic. Dr. Wilson is known for his expertise in managing complex neurological conditions and his commitment to advancing neurological research.</p>
-      <ul>
-      <li>20+ years of experience in neurology.</li>
-      <li>Specialist in epilepsy and neurodegenerative diseases.</li>
-      <li>Published over 40 research papers in leading medical journals.</li>
-      <li>Frequent speaker at international neurology conferences.</li>
-      </ul>`,
-      experience: `<p>Dr. Wilson's practice focuses on providing comprehensive care for patients with neurological disorders. He utilizes the latest diagnostic tools and treatment options to manage conditions such as epilepsy, multiple sclerosis, and Parkinson's disease. Dr. Wilson is dedicated to improving the quality of life for his patients through personalized care and ongoing support.</p>
-      <ul>
-      <li>Expert in advanced neuroimaging techniques.</li>
-      <li>Developed patient education programs for neurological conditions.</li>
-      <li>Recipient of the "Excellence in Neurology" award in 2022.</li>
-      </ul>`,
-      order: 5,
-    },
-    {
-      slug: "dr-linda-brown",
-      name: "Dr. Linda Brown",
-      image: "/images/specialists/",
-      job_title: "Endocrinologist",
-      specialty:
-        "Specializes in diagnosing and treating hormonal disorders, including diabetes, thyroid diseases, and metabolic disorders.",
-      career: `<p>Dr. Linda Brown is a highly respected endocrinologist with over 18 years of experience in the field. She graduated from Johns Hopkins University School of Medicine and completed her residency at the Mayo Clinic. Dr. Brown is dedicated to providing comprehensive care for patients with endocrine disorders and is actively involved in clinical research.</p>
-      <ul>
-      <li>18+ years of experience in endocrinology.</li>
-      <li>Expert in diabetes management and thyroid disorders.</li>
-      <li>Published numerous articles on endocrine health and treatment.</li>
-      <li>Member of the Endocrine Society and American Diabetes Association.</li>
-      </ul>`,
-      experience: `<p>Dr. Brown's approach to endocrine care is patient-centered, focusing on individualized treatment plans and ongoing education. She is committed to helping her patients achieve optimal health through effective management of hormonal disorders and lifestyle modifications.</p>
-      <ul>
-      <li>Specialist in insulin pump therapy and continuous glucose monitoring.</li>
-      <li>Conducted community outreach programs on diabetes prevention.</li>
-      <li>Recipient of the "Top Endocrinologist" award in 2021.</li>
-      </ul>`,
-      order: 6,
-    },
-  ];
-
-  for (const specialist of specialists) {
-    await prisma.specialists.create({
-      data: {
-        ...specialist,
-      },
-    });
-  }
-
   const services = [
     {
       slug: "cardiology-consultation",
@@ -358,6 +193,171 @@ async function main() {
             },
           })),
         },
+      },
+    });
+  }
+
+  const specialists = [
+    {
+      slug: "dr-john-doe",
+      name: "Dr. John Doe",
+      image: "/images/specialists/",
+      job_title: "Cardiologist",
+      specialty:
+        "Specializes in diagnosing and treating heart diseases, with expertise in minimally invasive cardiac procedures and preventive cardiology.",
+      career: `<p>Dr. John Doe has over two decades of experience in the field of cardiology, working in some of the most reputed hospitals in the country. He earned his medical degree from Harvard Medical School, followed by a residency at the Johns Hopkins Hospital. Over the years, Dr. Doe has been instrumental in developing innovative techniques for diagnosing and treating cardiovascular diseases, particularly focusing on patient-centric care.</p>
+      <ul>
+        <li>20+ years in clinical cardiology practice.</li>
+        <li>Conducted over 5,000 minimally invasive procedures.</li>
+        <li>Published 30+ research papers in renowned medical journals.</li>
+        <li>Serves as a guest lecturer at international cardiology conferences.</li>
+      </ul>`,
+      experience: `<p>Dr. Doe is known for his compassionate approach toward patients, ensuring that every individual receives personalized care tailored to their unique needs. His expertise spans across a wide range of cardiovascular treatments, including echocardiography, stress testing, and cardiac catheterization. He is particularly skilled in managing complex cases such as congenital heart defects and advanced heart failure.</p>
+      <ul>
+        <li>Specialist in preventive cardiology and patient education programs.</li>
+        <li>Developed community outreach programs promoting heart health.</li>
+        <li>Recipient of the "Excellence in Cardiology" award in 2021.</li>
+      </ul>`,
+      order: 0,
+    },
+    {
+      slug: "dr-jane-smith",
+      name: "Dr. Jane Smith",
+      image: "/images/specialists/",
+      job_title: "Dermatologist",
+      specialty:
+        "Expert in treating skin conditions, including acne, eczema, psoriasis, and cosmetic dermatology procedures like laser therapy and botox.",
+      career: `<p>Dr. Jane Smith is a board-certified dermatologist with 15 years of experience in both medical and cosmetic dermatology. She graduated from Stanford University School of Medicine and completed her residency at the Mayo Clinic. Dr. Smith has dedicated her career to enhancing skin health and improving her patients’ confidence through advanced dermatological treatments.</p>
+      <ul>
+        <li>15 years of clinical dermatology experience.</li>
+        <li>Pioneer in laser treatments for chronic skin conditions.</li>
+        <li>Published 20+ articles on advancements in dermatology.</li>
+        <li>Frequent speaker at global dermatology summits.</li>
+      </ul>`,
+      experience: `<p>Dr. Smith's practice combines her vast knowledge of skin conditions with state-of-the-art technology to provide top-notch care. Her commitment to patient satisfaction and education has earned her a loyal following. Whether it’s managing persistent conditions like rosacea or performing intricate cosmetic procedures, Dr. Smith ensures a seamless experience for her patients.</p>
+      <ul>
+        <li>Expert in non-invasive cosmetic procedures.</li>
+        <li>Developed personalized treatment plans for over 10,000 patients.</li>
+        <li>Awarded "Best Dermatologist" in the region for five consecutive years.</li>
+      </ul>`,
+      order: 1,
+    },
+    {
+      slug: "dr-michael-jones",
+      name: "Dr. Michael Jones",
+      image: "/images/specialists/",
+      job_title: "Nutritionist",
+      specialty:
+        "Specializes in creating personalized nutrition plans for heart health, weight management, and overall well-being.",
+      career: `<p>Dr. Michael Jones is a registered dietitian and nutritionist with a focus on cardiovascular health and disease prevention. He holds a Ph.D. in Nutritional Sciences from the University of California, Berkeley, and has conducted extensive research on the impact of diet on heart health. Dr. Jones is passionate about empowering individuals to make informed choices about their nutrition and lead healthier lives.</p>
+      <ul>
+        <li>10+ years of experience in clinical nutrition.</li>
+        <li>Published research on the role of diet in heart disease prevention.</li>
+        <li>Developed nutrition education programs for schools and communities.</li>
+        <li>Featured in national health magazines for his expertise.</li>
+      </ul>`,
+      experience: `<p>Dr. Jones takes a holistic approach to nutrition, considering each patient’s unique health goals and lifestyle factors. He provides evidence-based guidance on dietary changes that can improve heart health, manage weight, and enhance overall well-being. Dr. Jones is known for his practical advice and ongoing support to help patients achieve sustainable results.</p>
+      <ul>
+        <li>Specialist in plant-based diets for heart disease prevention.</li>
+        <li>Conducted nutrition workshops for over 1,000 individuals.</li>
+        <li>Hosts a popular podcast on nutrition and health topics.</li>
+      </ul>`,
+      order: 2,
+    },
+    {
+      slug: "dr-emily-clark",
+      name: "Dr. Emily Clark",
+      image: "/images/specialists/",
+      job_title: "Orthopedic Surgeon",
+      specialty:
+        "Expert in surgical and non-surgical treatment of musculoskeletal system disorders, including bones, joints, ligaments, tendons, and muscles.",
+      career: `<p>Dr. Emily Clark is a highly skilled orthopedic surgeon with over 12 years of experience in treating a wide range of musculoskeletal conditions. She completed her medical degree at the University of California, San Francisco, and her residency at the Hospital for Special Surgery in New York. Dr. Clark is known for her expertise in minimally invasive surgical techniques and her commitment to patient-centered care.</p>
+      <ul>
+        <li>12+ years of experience in orthopedic surgery.</li>
+        <li>Performed over 1,500 successful joint replacement surgeries.</li>
+        <li>Published 25+ research papers on orthopedic advancements.</li>
+        <li>Active member of the American Academy of Orthopedic Surgeons.</li>
+      </ul>`,
+      experience: `<p>Dr. Clark's practice focuses on providing comprehensive care for patients with orthopedic conditions. She is adept at diagnosing and treating a variety of issues, from sports injuries to degenerative diseases. Her approach combines advanced surgical techniques with personalized rehabilitation plans to ensure optimal recovery for her patients.</p>
+      <ul>
+        <li>Specialist in arthroscopic surgery and joint preservation.</li>
+        <li>Developed innovative rehabilitation protocols for post-surgical recovery.</li>
+        <li>Recipient of the "Outstanding Orthopedic Surgeon" award in 2020.</li>
+      </ul>`,
+      order: 3,
+    },
+    {
+      slug: "dr-susan-lee",
+      name: "Dr. Susan Lee",
+      image: "/images/specialists/",
+      job_title: "Pediatrician",
+      specialty:
+        "Specializes in the medical care of infants, children, and adolescents, with a focus on preventive health and developmental milestones.",
+      career: `<p>Dr. Susan Lee is a dedicated pediatrician with over 15 years of experience in child healthcare. She graduated from Yale School of Medicine and completed her residency at Boston Children's Hospital. Dr. Lee is passionate about providing comprehensive care to children and supporting their families through every stage of development.</p>
+      <ul>
+      <li>15+ years of experience in pediatric care.</li>
+      <li>Expert in childhood immunizations and preventive health.</li>
+      <li>Published numerous articles on pediatric health and nutrition.</li>
+      <li>Active member of the American Academy of Pediatrics.</li>
+      </ul>`,
+      experience: `<p>Dr. Lee's approach to pediatric care is centered around building strong relationships with her patients and their families. She emphasizes the importance of preventive care, early diagnosis, and personalized treatment plans to ensure the best outcomes for her young patients.</p>
+      <ul>
+      <li>Specialist in developmental assessments and early intervention.</li>
+      <li>Conducted community health programs focused on child wellness.</li>
+      <li>Recipient of the "Outstanding Pediatrician" award in 2019.</li>
+      </ul>`,
+      order: 4,
+    },
+    {
+      slug: "dr-david-wilson",
+      name: "Dr. David Wilson",
+      image: "/images/specialists/",
+      job_title: "Neurologist",
+      specialty:
+        "Expert in diagnosing and treating disorders of the nervous system, including epilepsy, multiple sclerosis, and neurodegenerative diseases.",
+      career: `<p>Dr. David Wilson is a board-certified neurologist with over 20 years of experience in the field. He earned his medical degree from the University of Pennsylvania and completed his residency at the Cleveland Clinic. Dr. Wilson is known for his expertise in managing complex neurological conditions and his commitment to advancing neurological research.</p>
+      <ul>
+      <li>20+ years of experience in neurology.</li>
+      <li>Specialist in epilepsy and neurodegenerative diseases.</li>
+      <li>Published over 40 research papers in leading medical journals.</li>
+      <li>Frequent speaker at international neurology conferences.</li>
+      </ul>`,
+      experience: `<p>Dr. Wilson's practice focuses on providing comprehensive care for patients with neurological disorders. He utilizes the latest diagnostic tools and treatment options to manage conditions such as epilepsy, multiple sclerosis, and Parkinson's disease. Dr. Wilson is dedicated to improving the quality of life for his patients through personalized care and ongoing support.</p>
+      <ul>
+      <li>Expert in advanced neuroimaging techniques.</li>
+      <li>Developed patient education programs for neurological conditions.</li>
+      <li>Recipient of the "Excellence in Neurology" award in 2022.</li>
+      </ul>`,
+      order: 5,
+    },
+    {
+      slug: "dr-linda-brown",
+      name: "Dr. Linda Brown",
+      image: "/images/specialists/",
+      job_title: "Endocrinologist",
+      specialty:
+        "Specializes in diagnosing and treating hormonal disorders, including diabetes, thyroid diseases, and metabolic disorders.",
+      career: `<p>Dr. Linda Brown is a highly respected endocrinologist with over 18 years of experience in the field. She graduated from Johns Hopkins University School of Medicine and completed her residency at the Mayo Clinic. Dr. Brown is dedicated to providing comprehensive care for patients with endocrine disorders and is actively involved in clinical research.</p>
+      <ul>
+      <li>18+ years of experience in endocrinology.</li>
+      <li>Expert in diabetes management and thyroid disorders.</li>
+      <li>Published numerous articles on endocrine health and treatment.</li>
+      <li>Member of the Endocrine Society and American Diabetes Association.</li>
+      </ul>`,
+      experience: `<p>Dr. Brown's approach to endocrine care is patient-centered, focusing on individualized treatment plans and ongoing education. She is committed to helping her patients achieve optimal health through effective management of hormonal disorders and lifestyle modifications.</p>
+      <ul>
+      <li>Specialist in insulin pump therapy and continuous glucose monitoring.</li>
+      <li>Conducted community outreach programs on diabetes prevention.</li>
+      <li>Recipient of the "Top Endocrinologist" award in 2021.</li>
+      </ul>`,
+      order: 6,
+    },
+  ];
+
+  for (const specialist of specialists) {
+    await prisma.specialists.create({
+      data: {
+        ...specialist,
       },
     });
   }

@@ -27,7 +27,7 @@ export default function LoginPage() {
   const [state, formAction] = useActionState(loginUser, initialState);
 
   return (
-    <div className="w-screen min-h-screen flex-center">
+    <div className="min-h-[calc(100vh-5rem)] pt-4 pb-20 flex-center">
       <form
         action={formAction}
         className="flex flex-col gap-4 p-4 rounded-2xl bg-main-dark-blue text-center max-w-lg w-[calc(100%-2rem)]"

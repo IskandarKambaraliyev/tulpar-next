@@ -20,9 +20,6 @@ export default async function AdminServicesPage() {
   }
 
   return (
-    <div className="container">
-      Admin Services Page
-      <Reorder initial={services} />
-    </div>
+    <Reorder initial={services} />
   );
 }
