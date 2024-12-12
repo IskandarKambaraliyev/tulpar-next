@@ -88,3 +88,11 @@ model User {
   isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model Messages {
+  id      String   @id @default(cuid())
+  name    String
+  email   String
+  message String
+  sendAt  DateTime @default(now())
+}
