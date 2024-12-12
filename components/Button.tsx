@@ -42,7 +42,7 @@ const Button = ({
     {
       "rounded-xl lg:rounded-2xl px-4 py-2 lg:px-6 lg:py-3 text-white hover:opacity-90 active:scale-95 transition-transform":
         !rounded,
-      "bg-white text-main-dark-blue":
+      "bg-white !text-main-dark-blue":
         (!rounded && color === "white") ||
         (rounded && !outlined && color === "white"),
       "bg-main-dark-blue":
