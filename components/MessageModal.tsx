@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import Button from "./Button";
 import sendMessage from "@/app/actions/sendMessage";
-import { useActionState } from "react";
+import { ReactNode, useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
 type FieldErrors = {
@@ -31,11 +31,11 @@ const initialState = {
   errors: {} as Errors,
 };
 
-const MessageModal = () => {
+const MessageModal = ({ children }: { children: ReactNode }) => {
   const [state, formAction] = useActionState(sendMessage, initialState);
   return (
     <Dialog>
-      <DialogTrigger>Open Dialog</DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-center text-3xl">
