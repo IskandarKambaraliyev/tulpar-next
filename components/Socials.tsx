@@ -5,7 +5,9 @@ import {
   AnimatePresence,
   stagger,
   useAnimate,
+  useAnimationControls,
   usePresence,
+  motion,
 } from "motion/react";
 import { EditIcon, GlobeIcon, PhoneIcon, XIcon } from "lucide-react";
 import { InstagramIcon, TelegramIcon } from "./icons";
@@ -14,6 +16,29 @@ import MessageModal from "./MessageModal";
 
 const Socials = () => {
   const [open, setOpen] = useState(false);
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    if (open) {
+      controls.stop();
+      controls.start({
+        scale: 1,
+        opacity: 1,
+        transition: {
+          duration: 0.25,
+        },
+      });
+    } else {
+      controls.start({
+        scale: [0, 1.5],
+        opacity: [1, 0],
+        transition: {
+          duration: 2,
+          repeat: Infinity,
+        },
+      });
+    }
+  }, [open]);
 
   return (
     <div className="fixed bottom-28 right-4">
@@ -21,15 +46,10 @@ const Socials = () => {
         onClick={() => setOpen(!open)}
         className="size-12 bg-main-red flex-center rounded-full text-white border border-white relative"
       >
-        <div
-          className={cn(
-            "absolute z-[-1] -inset-2 bg-main-red/50 rounded-full transition",
-            {
-              "scale-100": open,
-              "scale-0": !open,
-            }
-          )}
-        ></div>
+        <motion.div
+          animate={controls}
+          className={cn("absolute z-[-1] -inset-2 bg-main-red/50 rounded-full")}
+        />
         <GlobeIcon />
       </button>
 
@@ -100,10 +120,23 @@ const Links = () => {
           item?.spec ? (
             <MessageModal key={index}>
               <button
-                className={`social relative size-12 rounded-full bg-main-${item.color}`}
+                className={cn(`social relative size-12 rounded-full`, {
+                  "bg-main-green": item.color === "green",
+                  "bg-main-blue": item.color === "blue",
+                  "bg-main-pink": item.color === "pink",
+                  "bg-main-dark-blue": item.color === "dark-blue",
+                })}
               >
                 <div
-                  className={`absolute z-[-1] -inset-1 rounded-full bg-main-${item.color} !opacity-50`}
+                  className={cn(
+                    `absolute z-[-1] -inset-1 rounded-full !opacity-50`,
+                    {
+                      "bg-main-green": item.color === "green",
+                      "bg-main-blue": item.color === "blue",
+                      "bg-main-pink": item.color === "pink",
+                      "bg-main-dark-blue": item.color === "dark-blue",
+                    }
+                  )}
                 ></div>
                 <div className="size-full rounded-full flex-center text-white border border-white">
                   {item.name}
@@ -112,11 +145,24 @@ const Links = () => {
             </MessageModal>
           ) : (
             <div
-              className={`social relative size-12 rounded-full bg-main-${item.color}`}
+              className={cn(`social relative size-12 rounded-full`, {
+                "bg-main-green": item.color === "green",
+                "bg-main-blue": item.color === "blue",
+                "bg-main-pink": item.color === "pink",
+                "bg-main-dark-blue": item.color === "dark-blue",
+              })}
               key={index}
             >
               <div
-                className={`absolute z-[-1] -inset-1 rounded-full bg-main-${item.color} !opacity-50`}
+                className={cn(
+                  `absolute z-[-1] -inset-1 rounded-full !opacity-50`,
+                  {
+                    "bg-main-green": item.color === "green",
+                    "bg-main-blue": item.color === "blue",
+                    "bg-main-pink": item.color === "pink",
+                    "bg-main-dark-blue": item.color === "dark-blue",
+                  }
+                )}
               ></div>
               <a
                 href={item.url}
