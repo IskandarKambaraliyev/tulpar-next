@@ -16,49 +16,6 @@ import MessageModal from "./MessageModal";
 
 const Socials = () => {
   const [open, setOpen] = useState(false);
-  // const controls = useAnimationControls();
-
-  // useEffect(() => {
-  //   if (open) {
-  //     controls.stop();
-  //     controls.start({
-  //       scale: 1,
-  //       opacity: 1,
-  //       transition: {
-  //         duration: 0.25,
-  //       },
-  //     });
-  //   } else {
-  //     controls.stop();
-  //     controls.start({
-  //       scale: [0, 1.5],
-  //       opacity: [1, 0],
-  //       transition: {
-  //         duration: 2,
-  //         repeat: Infinity,
-  //         repeatType: "loop",
-  //       },
-  //     });
-  //   }
-  // }, [open]);
-
-  const variants = {
-    open: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.25,
-      },
-    },
-    notOpen: {
-      scale: [0, 1.5],
-      opacity: [1, 0],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-      },
-    },
-  };
 
   return (
     <div className="fixed bottom-28 right-4">
@@ -66,10 +23,14 @@ const Socials = () => {
         onClick={() => setOpen(!open)}
         className="size-12 bg-main-red flex-center rounded-full text-white border border-white relative"
       >
-        <motion.div
-          variants={variants}
-          animate={open ? "open" : "notOpen"}
-          className={cn("absolute z-[-1] -inset-2 bg-main-red/50 rounded-full")}
+        <div
+          className={cn(
+            "absolute z-[-1] -inset-2 bg-main-red/50 rounded-full pointer-events-none",
+            {
+              "animate-trigger-close": !open,
+              "scale-100": open,
+            }
+          )}
         />
         <GlobeIcon />
       </button>
