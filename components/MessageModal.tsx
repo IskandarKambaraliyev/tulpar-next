@@ -1,11 +1,12 @@
 "use client";
 
+import { useState } from "react";
+import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogFooter,
   DialogTitle,
   DialogTrigger,
   DialogClose,
@@ -14,6 +15,8 @@ import Button from "./Button";
 import sendMessage from "@/app/actions/sendMessage";
 import { ReactNode, useActionState } from "react";
 import { useFormStatus } from "react-dom";
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
 
 type FieldErrors = {
   name?: string[];
@@ -32,7 +35,12 @@ const initialState = {
 };
 
 const MessageModal = ({ children }: { children: ReactNode }) => {
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [state, formAction] = useActionState(sendMessage, initialState);
+
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -49,6 +57,8 @@ const MessageModal = ({ children }: { children: ReactNode }) => {
         </DialogHeader>
 
         <form action={formAction} className="flex flex-col gap-12 modal-form">
+          <input type="hidden" name="recaptcha" value={recaptchaToken || ""} />
+
           {state &&
             state.errors &&
             "form" in state.errors &&
@@ -110,6 +120,11 @@ const MessageModal = ({ children }: { children: ReactNode }) => {
                 )}
             </div>
           </div>
+
+          {/* Google reCAPTCHA */}
+          {!recaptchaToken && (
+            <GoogleReCaptcha onVerify={handleRecaptchaChange} />
+          )}
 
           <div className="flex items-center justify-center gap-4">
             <DialogClose asChild>

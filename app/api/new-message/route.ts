@@ -1,13 +1,22 @@
 import prisma from "@/lib/db";
 import { EmailParams, Recipient, MailerSend } from "mailersend";
 import { NextResponse } from "next/server";
+import { z } from "zod";
+
+// Define the schema for validation
+const MessageSchema = z.object({
+  email: z.string().trim().email("Invalid email format."),
+  name: z.string().trim().min(3).max(30),
+  message: z.string().trim(),
+});
 
 export async function POST(req: Request) {
-  const { email, name, message } = await req.json();
-
-  const origin = process.env.ORIGIN_URL || "http://localhost:3000";
-
   try {
+    const body = await req.json();
+    const { email, name, message } = MessageSchema.parse(body);
+
+    const origin = process.env.ORIGIN_URL || "http://localhost:3000";
+
     const createdMessage = await prisma.messages.create({
       data: {
         email,
@@ -50,9 +59,20 @@ export async function POST(req: Request) {
     if (res.statusCode === 200 || res.statusCode === 202) {
       return NextResponse.json({ message: "Success" });
     }
-  } catch (error) {
-    console.log(error);
 
-    return NextResponse.json({ message: "Error" });
+    return NextResponse.json({ message: "Failed to send email." });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: "Validation Error", errors: error.errors },
+        { status: 400 }
+      );
+    }
+
+    console.error(error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

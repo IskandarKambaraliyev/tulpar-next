@@ -18,10 +18,11 @@ const Socials = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-28 right-4">
+    <div className="fixed z-header-1 bottom-28 right-4">
       <button
         onClick={() => setOpen(!open)}
         className="size-12 bg-main-red flex-center rounded-full text-white border border-white relative"
+        title={open ? "Close links" : "Open links"}
       >
         <div
           className={cn(
@@ -48,19 +49,19 @@ const Links = () => {
 
   const items = [
     {
-      name: <InstagramIcon />,
+      icon: <InstagramIcon />,
       url: "https://instagram.com/takhirjanovich_",
       color: "pink",
     },
-    { name: <PhoneIcon />, url: "tel:+998 (33) 315-55-00", color: "dark-blue" },
+    { icon: <PhoneIcon />, url: "tel:+998 (33) 315-55-00", color: "dark-blue" },
     {
-      name: <EditIcon />,
+      icon: <EditIcon />,
       url: "https://linkedin.com",
       color: "green",
       spec: true,
     },
     {
-      name: <TelegramIcon />,
+      icon: <TelegramIcon />,
       url: "https://t.me/Takhirjanovich",
       color: "blue",
     },
@@ -121,7 +122,7 @@ const Links = () => {
                   )}
                 ></div>
                 <div className="size-full rounded-full flex-center text-white border border-white">
-                  {item.name}
+                  {item.icon}
                 </div>
               </button>
             </MessageModal>
@@ -151,7 +152,7 @@ const Links = () => {
                 target="_blank"
                 className="size-full rounded-full flex-center text-white border border-white"
               >
-                {item.name}
+                {item.icon}
               </a>
             </div>
           )

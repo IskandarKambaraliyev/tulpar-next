@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { LogoIcon, TriggerIcon } from "./icons";
-import { AdminHeaderMenu } from "./HeaderMenu";
+import HeaderMenu, { AdminHeaderMenu } from "./HeaderMenu";
 
 import { HeaderLinksType, HeaderProps } from "@/types";
 
@@ -55,13 +55,16 @@ const Header = ({ services }: HeaderProps) => {
     },
   ];
   return (
-    <header className="header sticky top-0 left-0 w-full h-20 bg-white z-header border-b border-gray-100 flex-center">
+    <header
+      className="header sticky top-0 left-0 w-full h-14 md:h-20 bg-white z-header border-b border-gray-100 flex-center"
+      id="header"
+    >
       <div className="container flex items-center justify-between gap-4">
         <Link href="/">
           <Logo />
         </Link>
 
-        <ul className="flex items-center gap-2 lg:gap-4">
+        <ul className="max-md:hidden flex items-center gap-2 lg:gap-4">
           {HEADER_LINKS.map((link) => (
             <li key={link.title}>
               {!link.children ? (
@@ -88,6 +91,8 @@ const Header = ({ services }: HeaderProps) => {
             </li>
           ))}
         </ul>
+
+        <HeaderMenu links={HEADER_LINKS} />
       </div>
     </header>
   );
