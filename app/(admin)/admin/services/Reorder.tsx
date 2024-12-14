@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "@hello-pangea/dnd";
 import Link from "next/link";
 import { Grip, Square, SquareCheck, SquareDot } from "lucide-react";
 import Button from "@/components/Button";
@@ -26,22 +31,22 @@ const Reorder = ({ initial }: Props) => {
   const [selected, setSelected] = useState<SelectedType>(null);
   const [delLoading, setDelLoading] = useState(false);
 
-  const onDragEnd = async (result: any) => {
+  const onDragEnd = async (result: DropResult) => {
     if (!result.destination) {
       return;
     }
 
+    const prevServices = [...services]; // Save previous state for rollback
     const items = Array.from(services);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    // Update the order field
     const updatedServices = items.map((item, index) => ({
       ...item,
       order: index,
     }));
 
-    setServices(updatedServices);
+    setServices(updatedServices); // Optimistic update
 
     const reducedServices = updatedServices.map((service) => ({
       id: service.id,
@@ -49,15 +54,18 @@ const Reorder = ({ initial }: Props) => {
     }));
 
     try {
-      await fetch("/api/update/service-order", {
+      const response = await fetch("/api/update/service-order", {
         method: "POST",
         body: JSON.stringify({ services: reducedServices }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update: ${response.statusText}`);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Order update failed:", error);
+      setServices(prevServices); // Revert to previous state if API call fails
     }
   };
 
