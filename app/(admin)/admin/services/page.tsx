@@ -19,7 +19,5 @@ export default async function AdminServicesPage() {
     return <div>No services found</div>;
   }
 
-  return (
-    <Reorder initial={services} />
-  );
+  return <Reorder initial={services} />;
 }

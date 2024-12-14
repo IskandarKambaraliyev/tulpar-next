@@ -11,6 +11,8 @@ import Link from "next/link";
 import { Grip, Square, SquareCheck, SquareDot } from "lucide-react";
 import Button from "@/components/Button";
 import { cn } from "@/lib/utils";
+import { revalidatePath } from "next/cache";
+import revalidate from "@/app/actions/revalidate";
 
 type Service = {
   id: string;
@@ -62,6 +64,8 @@ const Reorder = ({ initial }: Props) => {
 
       if (!response.ok) {
         throw new Error(`Failed to update: ${response.statusText}`);
+      } else {
+        revalidate();
       }
     } catch (error) {
       console.error("Order update failed:", error);
