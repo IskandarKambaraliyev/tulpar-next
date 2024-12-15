@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
       "Discover expert healthcare services at Tulpar Medical Center. Providing comprehensive diagnostics, advanced treatments, and compassionate care for your well-being.",
     start_url: "/",
     display: "standalone",
-    theme_color: "#32495E",
+    theme_color: "#f9fafb",
     background_color: "#ffffff",
     icons: [
       {
