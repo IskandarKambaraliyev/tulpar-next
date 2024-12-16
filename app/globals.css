@@ -18,6 +18,28 @@ body {
 .animate-trigger-close {
   animation: trigger-close 3s ease infinite;
 }
+
+.service-card .content {
+  opacity: 0;
+}
+.service-card .content .info {
+  transform: translateY(100%);
+}
+.service-card:hover .content {
+  opacity: 1;
+}
+.service-card:hover .content .info {
+  transform: translateY(0);
+}
+@media screen and (hover: none) {
+  .service-card .content {
+    opacity: 1;
+  }
+  .service-card .content .info {
+    transform: translateY(0);
+  }
+}
+
 @keyframes trigger-close {
   0% {
     transform: scale(0);
@@ -89,5 +111,9 @@ body {
     width: calc(100% - 2rem);
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .section {
+    @apply py-12 md:py-16;
   }
 }

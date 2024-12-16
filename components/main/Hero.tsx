@@ -1,4 +1,7 @@
+import { cn } from "@/lib/utils";
 import React from "react";
+import Button from "../Button";
+import { CircleIcon } from "lucide-react";
 
 type AtLeast<
   T,
@@ -41,10 +44,67 @@ const Hero = () => {
   };
   return (
     <section className="w-full min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-5rem)] grid grid-cols-1 lg:grid-cols-2">
-      <div className="lg:col-span-1 bg-main-red text-white"></div>
-      <div className="lg:col-span-1 bg-gray-50"></div>
+      <div className="lg:col-span-1 bg-main-red text-white lg:text-right flex flex-col items-start lg:items-end justify-between gap-8 md:gap-10 lg:gap-16 px-4 md:px-16 lg:px-20 py-28">
+        <Info
+          title={service1.title}
+          content={service1.content}
+          list={service1.list}
+        />
+
+        <Button rounded outlined color="white" href="/services">
+          All Services
+        </Button>
+      </div>
+      <div className="lg:col-span-1 bg-gray-50 flex flex-col items-start justify-between gap-8 md:gap-10 lg:gap-16 px-4 md:px-16 lg:px-20 py-28">
+        <Info
+          title={service2.title}
+          content={service2.content}
+          list={service2.list}
+          leftSide={false}
+        />
+
+        <Button rounded outlined color="dark" href="/services">
+          All Services
+        </Button>
+      </div>
     </section>
   );
 };
 
 export default Hero;
+
+type InfoProps = {
+  title: string;
+  content: string;
+  list: string[];
+  leftSide?: boolean;
+};
+const Info = ({ title, content, list, leftSide = true }: InfoProps) => {
+  return (
+    <>
+      <h2 className="text-lg md:text-xl lg:text-3xl font-bold">{title}</h2>
+
+      <div className="flex flex-col gap-4">
+        <p className="text-sm lg:text-base font-medium">{content}</p>
+
+        <ul className="flex flex-col">
+          {list.map((item, index) => (
+            <li
+              key={index}
+              className={cn(
+                "text-sm lg:text-base flex items-center gap-4 max-lg:justify-start",
+                {
+                  "lg:flex-row-reverse": leftSide,
+                  "": !leftSide,
+                }
+              )}
+            >
+              <CircleIcon className="size-2" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+};

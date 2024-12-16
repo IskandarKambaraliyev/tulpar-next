@@ -21,3 +21,36 @@ export type HeaderLinksType = {
       }[];
     }
 );
+
+export type MainService = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  slug: string;
+};
+
+export type MainSpecialist = {
+  id: string;
+  name: string;
+  specialty: string;
+  image: string;
+  slug: string;
+};
+
+export type PriceListType = {
+  id: string;
+  order: number;
+  createdAt: Date;
+  name: string;
+  price: string;
+};
+
+export type ReportType = {
+  id: string;
+  title: string;
+  order: number;
+  createdAt: Date;
+  src: string;
+  is_video: boolean;
+};
