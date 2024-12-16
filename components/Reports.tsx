@@ -1,13 +1,14 @@
 "use client";
 
 import { ReportType } from "@/types";
-import Title from "../Title";
-import Button from "../Button";
+import Title from "./Title";
+import Button from "./Button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Image from "next/image";
 import { CirclePlay } from "lucide-react";
+import Lines from "./Lines";
 
 type Props = {
   data: ReportType[];
@@ -17,8 +18,10 @@ const Reports = ({ data }: Props) => {
 
   const [parent] = useAutoAnimate();
   return (
-    <section className="section bg-main-dark-blue text-white">
-      <div className="container space-y-12">
+    <section className="section bg-main-dark-blue text-white relative">
+      <Lines color="dark" />
+      
+      <div className="container space-y-12 relative">
         <Title>Photo and Video Reports</Title>
 
         <div className="flex flex-col flex-wrap gap-4 md:gap-8">

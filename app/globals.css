@@ -116,4 +116,19 @@ body {
   .section {
     @apply py-12 md:py-16;
   }
+
+  .custom-html {
+    @apply flex flex-col gap-4;
+    ul {
+      @apply list-disc list-inside;
+    }
+
+    ol {
+      @apply list-decimal list-inside;
+    }
+
+    ul, ol {
+      @apply flex flex-col gap-2;
+    }
+  }
 }

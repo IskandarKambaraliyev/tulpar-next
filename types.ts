@@ -54,3 +54,20 @@ export type ReportType = {
   src: string;
   is_video: boolean;
 };
+
+export type MianNewsType = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+  is_tip: boolean;
+};
+
+export type FaqType = {
+  id: string;
+  order: number;
+  createdAt: Date;
+  question: string;
+  answer: string;
+};

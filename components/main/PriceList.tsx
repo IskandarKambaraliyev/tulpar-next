@@ -3,14 +3,17 @@ import React from "react";
 import Title from "../Title";
 import Button from "../Button";
 import { cn } from "@/lib/utils";
+import Lines from "../Lines";
 
 type Props = {
   data: PriceListType[];
 };
 const PriceList = ({ data }: Props) => {
   return (
-    <section className="section bg-white">
-      <div className="container space-y-12">
+    <section className="section bg-white relative">
+      <Lines />
+
+      <div className="container space-y-12 relative">
         <Title>Price List</Title>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-16">
@@ -44,8 +47,12 @@ const Lists = ({ data, className }: ListsProps) => {
       <ul className="flex flex-col gap-4">
         {data.map((item) => (
           <li key={item.id} className="flex items-center justify-between gap-4">
-            <span className="text-sm md:text-base text-slate-400 font-medium">{item.name}</span>
-            <span className="text-sm md:text-base text-slate-500 font-semibold">{item.price}</span>
+            <span className="text-sm md:text-base text-slate-400 font-medium">
+              {item.name}
+            </span>
+            <span className="text-sm md:text-base text-slate-500 font-semibold">
+              {item.price}
+            </span>
           </li>
         ))}
       </ul>

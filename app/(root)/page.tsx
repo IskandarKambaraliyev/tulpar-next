@@ -1,4 +1,13 @@
-import { Hero, Services, Specialists, PriceList, Reports } from "@/components/main";
+import Brands from "@/components/Brands";
+import {
+  Hero,
+  Services,
+  Specialists,
+  PriceList,
+  News,
+  Faq,
+} from "@/components/main";
+import Reports from "@/components/Reports";
 import prisma from "@/lib/db";
 
 export default async function HomePage() {
@@ -43,15 +52,44 @@ export default async function HomePage() {
     },
     take: 8,
   });
+
+  const news = await prisma.newsAndTips.findMany({
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      image: true,
+      slug: true,
+      is_tip: true,
+    },
+    orderBy: {
+      order: "asc",
+    },
+    take: 4,
+  });
+
+  const faq = await prisma.questionAnswers.findMany({
+    orderBy: {
+      order: "asc",
+    },
+  });
   return (
     <>
       <Hero />
+
       {services && services.length > 0 && <Services data={services} />}
+
       {specialists && specialists.length > 0 && (
         <Specialists data={specialists} />
       )}
+
       {priceList && priceList.length > 0 && <PriceList data={priceList} />}
+
       {reports && reports.length > 0 && <Reports data={reports} />}
+
+      {news && news.length > 0 && <News data={news} />}
+
+      {faq && faq.length > 0 && <Faq data={faq} />}
     </>
   );
 }
