@@ -51,12 +51,23 @@ const ttHoves = localFont({
   weight: "400 700",
 });
 
+const ogImageTitle = `${
+  process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"
+}/api/og/${encodeURIComponent("Tulpar - Medical Center")}`;
+
 export const metadata: Metadata = {
   title: "Tulpar - Medical Center",
   description:
     "Discover expert healthcare services at Tulpar Medical Center. Providing comprehensive diagnostics, advanced treatments, and compassionate care for your well-being.",
   openGraph: {
-    images: ["/og-image.png"],
+    images: [
+      {
+        url: ogImageTitle,
+        width: 1200,
+        height: 600,
+        alt: "Tulpar Medical Center",
+      },
+    ],
   },
   metadataBase: new URL("https://tulpar.stiv.uz"),
   alternates: {
