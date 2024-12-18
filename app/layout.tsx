@@ -4,6 +4,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import "./globals.css";
 import Providers from "./providers";
+import { Suspense } from "react";
 
 const ttHoves = localFont({
   src: [
@@ -122,9 +123,11 @@ export default function RootLayout({
       <body className={`${ttHoves.variable}`}>
         <div id="recap" className="hidden"></div>
 
-        <NuqsAdapter>
-          <Providers>{children}</Providers>
-        </NuqsAdapter>
+        <Suspense fallback={<p>loading</p>}>
+          <NuqsAdapter>
+            <Providers>{children}</Providers>
+          </NuqsAdapter>
+        </Suspense>
       </body>
     </html>
   );

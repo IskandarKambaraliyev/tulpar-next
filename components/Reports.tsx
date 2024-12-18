@@ -39,30 +39,33 @@ const Reports = ({ data, isFull = false }: Props) => {
       })}
     >
       {!isFull && <Lines color="dark" />}
-      <div className="sticky top-14 md:top-20 left-0 py-4 bg-[#2B3946] z-[1]">
-        <div className="container">
-          <div className="flex items-center gap-4">
-            <TypeButton
-              currentType={type}
-              type={"all"}
-              title="Show all"
-              onClick={() => setType("all")}
-            />
-            <TypeButton
-              currentType={type}
-              type={"photo"}
-              title="Only Photo"
-              onClick={() => setType("photo")}
-            />
-            <TypeButton
-              type={"video"}
-              currentType={type}
-              title="Only Video"
-              onClick={() => setType("video")}
-            />
+
+      {isFull && (
+        <div className="sticky top-14 md:top-20 left-0 py-4 bg-[#2B3946] z-[1]">
+          <div className="container">
+            <div className="flex items-center gap-4">
+              <TypeButton
+                currentType={type}
+                type={"all"}
+                title="Show all"
+                onClick={() => setType("all")}
+              />
+              <TypeButton
+                currentType={type}
+                type={"photo"}
+                title="Only Photo"
+                onClick={() => setType("photo")}
+              />
+              <TypeButton
+                type={"video"}
+                currentType={type}
+                title="Only Video"
+                onClick={() => setType("video")}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div
         className={cn("container space-y-12 relative", {
