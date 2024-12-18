@@ -1,14 +1,26 @@
 import Brands from "@/components/Brands";
-import {
-  Hero,
-  Services,
-  Specialists,
-  PriceList,
-  News,
-  Faq,
-} from "@/components/main";
+import { Hero, Services, Specialists, News, Faq } from "@/components/main";
+import PriceList from "@/components/PriceList";
 import Reports from "@/components/Reports";
 import prisma from "@/lib/db";
+import { Metadata } from "next";
+
+const ogImageTitle = `${
+  process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"
+}/api/og/${encodeURIComponent("Home Page")}`;
+
+export const metadata: Metadata = {
+  openGraph: {
+    images: [
+      {
+        url: ogImageTitle,
+        width: 1200,
+        height: 630,
+        alt: "Tulpar Next",
+      },
+    ],
+  },
+};
 
 export default async function HomePage() {
   const services = await prisma.service.findMany({

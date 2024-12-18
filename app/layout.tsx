@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import "./globals.css";
 import Providers from "./providers";
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
       {
         url: ogImageTitle,
         width: 1200,
-        height: 600,
+        height: 630,
         alt: "Tulpar Medical Center",
       },
     ],
@@ -120,7 +121,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${ttHoves.variable}`}>
         <div id="recap" className="hidden"></div>
-        <Providers>{children}</Providers>
+
+        <NuqsAdapter>
+          <Providers>{children}</Providers>
+        </NuqsAdapter>
       </body>
     </html>
   );

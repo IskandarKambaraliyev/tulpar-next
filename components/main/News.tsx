@@ -1,6 +1,6 @@
 "use client";
 
-import { MianNewsType } from "@/types";
+import { MianNewsType, NewsType } from "@/types";
 import React, { useState } from "react";
 import Title from "../Title";
 import Button from "../Button";
@@ -13,7 +13,7 @@ type Props = {
   data: MianNewsType[];
 };
 const News = ({ data }: Props) => {
-  const [type, setType] = useState<"news" | "tips" | "all">("all");
+  const [type, setType] = useState<NewsType>("all");
 
   const [parent] = useAutoAnimate();
   return (

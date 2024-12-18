@@ -1,59 +1,99 @@
 "use client";
 
-import { ReportType } from "@/types";
+import { MediaType, ReportType } from "@/types";
 import Title from "./Title";
 import Button from "./Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Image from "next/image";
 import { CirclePlay } from "lucide-react";
 import Lines from "./Lines";
+import { parseAsStringEnum, useQueryState } from "nuqs";
 
 type Props = {
   data: ReportType[];
+  isFull?: boolean;
 };
-const Reports = ({ data }: Props) => {
-  const [type, setType] = useState<"photo" | "video" | "all">("all");
+
+const parseMediaType = parseAsStringEnum<MediaType>(["all", "photo", "video"]);
+
+const Reports = ({ data, isFull = false }: Props) => {
+  const [queryType, setQueryType] = useQueryState(
+    "type",
+    parseMediaType.withDefault("all")
+  );
+  const [type, setType] = useState<MediaType>(queryType);
 
   const [parent] = useAutoAnimate();
+
+  useEffect(() => {
+    if (isFull) {
+      setQueryType(type);
+    }
+  }, [type]);
   return (
-    <section className="section bg-main-dark-blue text-white relative">
-      <Lines color="dark" />
-      
-      <div className="container space-y-12 relative">
-        <Title>Photo and Video Reports</Title>
+    <section
+      className={cn("bg-main-dark-blue text-white relative", {
+        section: !isFull,
+      })}
+    >
+      {!isFull && <Lines color="dark" />}
+      <div className="sticky top-14 md:top-20 left-0 py-4 bg-[#2B3946] z-[1]">
+        <div className="container">
+          <div className="flex items-center gap-4">
+            <TypeButton
+              currentType={type}
+              type={"all"}
+              title="Show all"
+              onClick={() => setType("all")}
+            />
+            <TypeButton
+              currentType={type}
+              type={"photo"}
+              title="Only Photo"
+              onClick={() => setType("photo")}
+            />
+            <TypeButton
+              type={"video"}
+              currentType={type}
+              title="Only Video"
+              onClick={() => setType("video")}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={cn("container space-y-12 relative", {
+          section: isFull,
+        })}
+      >
+        {!isFull && <Title>Photo and Video Reports</Title>}
 
         <div className="flex flex-col flex-wrap gap-4 md:gap-8">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setType("all")}
-              className={cn("pb-1 border-b", {
-                "border-main-red": type === "all",
-                "border-transparent hover:border-white": type !== "all",
-              })}
-            >
-              Show all
-            </button>
-            <button
-              onClick={() => setType("photo")}
-              className={cn("pb-1 border-b", {
-                "border-main-red": type === "photo",
-                "border-transparent hover:border-white": type !== "photo",
-              })}
-            >
-              Only Photo
-            </button>
-            <button
-              onClick={() => setType("video")}
-              className={cn("pb-1 border-b", {
-                "border-main-red": type === "video",
-                "border-transparent hover:border-white": type !== "video",
-              })}
-            >
-              Only Video
-            </button>
-          </div>
+          {!isFull && (
+            <div className="flex items-center gap-4">
+              <TypeButton
+                currentType={type}
+                type={"all"}
+                title="Show all"
+                onClick={() => setType("all")}
+              />
+              <TypeButton
+                currentType={type}
+                type={"photo"}
+                title="Only Photo"
+                onClick={() => setType("photo")}
+              />
+              <TypeButton
+                type={"video"}
+                currentType={type}
+                title="Only Video"
+                onClick={() => setType("video")}
+              />
+            </div>
+          )}
           <div
             className="grid grid-cols-1 max-sm:gap-4 sm:grid-cols-2 md:grid-cols-4"
             ref={parent}
@@ -72,15 +112,17 @@ const Reports = ({ data }: Props) => {
           </div>
         </div>
 
-        <Button
-          rounded
-          outlined
-          color="white"
-          href={`/reports?type=${type}`}
-          className="w-fit mx-auto"
-        >
-          All Reports
-        </Button>
+        {!isFull && (
+          <Button
+            rounded
+            outlined
+            color="white"
+            href={`/reports?type=${type}`}
+            className="w-fit mx-auto"
+          >
+            All Reports
+          </Button>
+        )}
       </div>
     </section>
   );
@@ -116,5 +158,25 @@ const Report = (props: ReportType) => {
         </button>
       </div>
     </div>
+  );
+};
+
+type TypeButtonProps = {
+  type: MediaType;
+  currentType: MediaType;
+  title: string;
+  onClick: () => void;
+};
+const TypeButton = ({ type, currentType, title, onClick }: TypeButtonProps) => {
+  return (
+    <button
+      onClick={onClick}
+      className={cn("pb-1 border-b", {
+        "border-main-red": type === currentType,
+        "border-transparent hover:border-white": type !== currentType,
+      })}
+    >
+      {title}
+    </button>
   );
 };

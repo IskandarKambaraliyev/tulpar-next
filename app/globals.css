@@ -127,7 +127,8 @@ body {
       @apply list-decimal list-inside;
     }
 
-    ul, ol {
+    ul,
+    ol {
       @apply flex flex-col gap-2;
     }
   }

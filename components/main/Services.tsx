@@ -39,7 +39,7 @@ export default Services;
 const Service = (props: MainService) => {
   return (
     <Link
-      href={`/service/${props.slug}`}
+      href={`/services/${props.slug}`}
       className="relative overflow-hidden service-card"
     >
       <div className="aspect-square w-full">

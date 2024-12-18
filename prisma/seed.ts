@@ -18,6 +18,11 @@ async function main() {
           <li>ECG and Echocardiography services available.</li>
           <li>In-depth risk assessment for cardiovascular diseases.</li>
           <li>Recommendations for lifestyle and dietary changes.</li>
+          <li>Comprehensive heart health evaluations.</li>
+          <li>Personalized treatment plans for each patient.</li>
+          <li>Access to a multidisciplinary team of specialists.</li>
+          <li>State-of-the-art diagnostic and treatment facilities.</li>
+          <li>Ongoing support and follow-up care.</li>
         </ul>
       `,
       priceList: {
@@ -596,7 +601,8 @@ async function main() {
       slug: "breaking-medical-research-discovery-for-heart-disease-treatment",
       title:
         "Breaking: Medical Research Discovery Could Revolutionize Heart Disease Treatment",
-      image: "/images/news/breaking-medical-research-discovery-for-heart-disease-treatment.webp",
+      image:
+        "/images/news/breaking-medical-research-discovery-for-heart-disease-treatment.webp",
       description:
         "New medical research has uncovered potential breakthroughs in heart disease treatment that could save millions of lives worldwide.",
       content: `
@@ -637,7 +643,8 @@ async function main() {
     {
       slug: "new-breakthrough-in-cancer-treatment-paves-the-way-for-cure",
       title: "New Breakthrough in Cancer Treatment Paves the Way for Cure",
-      image: "/images/news/new-breakthrough-in-cancer-treatment-paves-the-way-for-cure.png",
+      image:
+        "/images/news/new-breakthrough-in-cancer-treatment-paves-the-way-for-cure.png",
       description:
         "A new, promising breakthrough in cancer research has raised hopes for a potential cure. Here’s what it means for the future of cancer treatment.",
       content: `

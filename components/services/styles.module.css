@@ -1,0 +1,12 @@
+@media screen and (hover: none) {
+  .servicesContainer {
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+  .servicesContainer .card .overlay {
+    opacity: 0;
+  }
+  .servicesContainer .card .content {
+    opacity: 1;
+  }
+}

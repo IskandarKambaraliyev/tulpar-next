@@ -71,3 +71,15 @@ export type FaqType = {
   question: string;
   answer: string;
 };
+
+export type ServicesServiceType = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
+export type MediaType = "all" | "photo" | "video";
+
+export type NewsType = "all" | "news" | "tips";

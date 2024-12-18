@@ -1,31 +1,46 @@
 import { PriceListType } from "@/types";
 import React from "react";
-import Title from "../Title";
-import Button from "../Button";
+import Title from "./Title";
+import Button from "./Button";
 import { cn } from "@/lib/utils";
-import Lines from "../Lines";
+import Lines from "./Lines";
 
 type Props = {
   data: PriceListType[];
+  isFull?: boolean;
 };
-const PriceList = ({ data }: Props) => {
+const PriceList = ({ data, isFull = false }: Props) => {
   return (
-    <section className="section bg-white relative">
+    <section className="section bg-white relative" id="priceList">
       <Lines />
+      {/* {!isFull && <Lines />} */}
 
       <div className="container space-y-12 relative">
         <Title>Price List</Title>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-16">
-          <Lists data={data.slice(0, 5)} className="max-md:hidden" />
-          <Lists data={data.slice(5)} className="max-md:hidden" />
+          <Lists
+            data={data.slice(0, Math.ceil(data.length / 2))}
+            className="max-md:hidden"
+          />
+          <Lists
+            data={data.slice(Math.ceil(data.length / 2))}
+            className="max-md:hidden"
+          />
 
           <Lists data={data} className="md:hidden" />
         </div>
 
-        <Button rounded outlined href="/price-list" className="w-fit mx-auto">
-          All Price List
-        </Button>
+        {!isFull && (
+          <Button
+            rounded
+            outlined
+            href="/services#priceList"
+            className="w-fit mx-auto"
+          >
+            All Price List
+          </Button>
+        )}
       </div>
     </section>
   );
