@@ -123,7 +123,7 @@ export default function RootLayout({
       <body className={`${ttHoves.variable}`}>
         <div id="recap" className="hidden"></div>
 
-        <Suspense fallback={<p>loading</p>}>
+        <Suspense fallback={null}>
           <NuqsAdapter>
             <Providers>{children}</Providers>
           </NuqsAdapter>
