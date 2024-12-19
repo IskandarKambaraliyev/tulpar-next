@@ -101,7 +101,7 @@ const Reports = ({ data, isFull = false }: Props) => {
             </div>
           )}
           <div
-            className="grid grid-cols-1 max-sm:gap-4 sm:grid-cols-2 md:grid-cols-4"
+            className="grid grid-cols-1 max-sm:gap-4 sm:grid-cols-2 md:grid-cols-4 overflow-hidden"
             ref={parent}
           >
             {data
