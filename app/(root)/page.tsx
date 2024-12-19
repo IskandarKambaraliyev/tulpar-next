@@ -7,7 +7,7 @@ import Reports from "@/components/Reports";
 import prisma from "@/lib/db";
 
 const ogImageTitle = `${
-  process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"
+  process.env.ORIGIN_URL || "https://tulpar.stiv.uz"
 }/api/og/${encodeURIComponent("Home Page")}`;
 
 export const metadata: Metadata = {

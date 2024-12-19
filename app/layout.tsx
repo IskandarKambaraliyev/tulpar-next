@@ -55,7 +55,7 @@ const ttHoves = localFont({
 });
 
 const ogImageTitle = `${
-  process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"
+  process.env.ORIGIN_URL || "https://tulpar.stiv.uz"
 }/api/og/${encodeURIComponent("Tulpar - Medical Center")}`;
 
 export const metadata: Metadata = {

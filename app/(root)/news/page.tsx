@@ -5,7 +5,7 @@ import prisma from "@/lib/db";
 import { Metadata } from "next";
 
 const ogImageTitle = `${
-  process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"
+  process.env.ORIGIN_URL || "https://tulpar.stiv.uz"
 }/api/og/${encodeURIComponent("Our news and tips")}`;
 
 export const metadata: Metadata = {

@@ -3,7 +3,7 @@ import { Hero } from "@/components/contactsPage";
 import { Metadata } from "next";
 
 const ogImageTitle = `${
-  process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"
+  process.env.ORIGIN_URL || "https://tulpar.stiv.uz"
 }/api/og/${encodeURIComponent("How to find us?")}`;
 
 export const metadata: Metadata = {
