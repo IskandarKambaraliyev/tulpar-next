@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
-import React from "react";
-import Button from "../Button";
 import { CircleIcon } from "lucide-react";
+import Button from "../Button";
+
+import { cn } from "@/lib/utils";
 
 type AtLeast<
   T,

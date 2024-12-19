@@ -1,9 +1,10 @@
-import { PriceListType } from "@/types";
-import React from "react";
+import { cn } from "@/lib/utils";
+
 import Title from "./Title";
 import Button from "./Button";
-import { cn } from "@/lib/utils";
 import Lines from "./Lines";
+
+import { PriceListType } from "@/types";
 
 type Props = {
   data: PriceListType[];

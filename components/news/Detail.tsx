@@ -1,7 +1,8 @@
-import { NewsDetailType } from "@/types";
 import Link from "next/link";
-import React from "react";
+
 import { TriggerIcon } from "../icons";
+
+import { NewsDetailType } from "@/types";
 
 type Props = {
   data: NewsDetailType;

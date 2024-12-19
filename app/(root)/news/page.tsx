@@ -1,5 +1,7 @@
 import { Hero, News } from "@/components/news";
+
 import prisma from "@/lib/db";
+
 import { Metadata } from "next";
 
 const ogImageTitle = `${

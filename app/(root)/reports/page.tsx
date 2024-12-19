@@ -1,6 +1,8 @@
 import Reports from "@/components/Reports";
 import { Hero } from "@/components/reportsPage";
+
 import prisma from "@/lib/db";
+
 import { Metadata } from "next";
 
 const ogImageTitle = `${

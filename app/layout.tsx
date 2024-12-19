@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import { Suspense } from "react";
 import localFont from "next/font/local";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import "./globals.css";
 import Providers from "./providers";
-import { Suspense } from "react";
+
+import type { Metadata } from "next";
 
 const ttHoves = localFont({
   src: [

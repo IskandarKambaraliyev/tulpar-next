@@ -5,14 +5,13 @@ import {
   AnimatePresence,
   stagger,
   useAnimate,
-  useAnimationControls,
   usePresence,
-  motion,
 } from "motion/react";
-import { EditIcon, GlobeIcon, PhoneIcon, XIcon } from "lucide-react";
-import { InstagramIcon, TelegramIcon } from "./icons";
+import { EditIcon, GlobeIcon, PhoneIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 import MessageModal from "./MessageModal";
+import { InstagramIcon, TelegramIcon } from "./icons";
 
 const Socials = () => {
   const [open, setOpen] = useState(false);

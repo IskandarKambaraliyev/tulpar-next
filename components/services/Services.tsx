@@ -1,7 +1,7 @@
-import { ServicesServiceType } from "@/types";
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
+
+import { ServicesServiceType } from "@/types";
 
 import styles from "./styles.module.css";
 

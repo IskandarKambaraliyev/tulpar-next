@@ -1,6 +1,8 @@
 import PriceList from "@/components/PriceList";
 import { ServiceHero, About, Advantages } from "@/components/services";
+
 import prisma from "@/lib/db";
+
 import { Metadata } from "next";
 
 export const dynamicParams = true;

@@ -1,16 +1,19 @@
 "use client";
 
-import { FaqType } from "@/types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 import Title from "../Title";
 import { ArrowRightIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import {
   Accordion,
   AccordionTrigger,
   AccordionContent,
   AccordionItem,
 } from "../ui/accordion";
+
+import { cn } from "@/lib/utils";
+
+import { FaqType } from "@/types";
 
 type Props = {
   data: FaqType[];

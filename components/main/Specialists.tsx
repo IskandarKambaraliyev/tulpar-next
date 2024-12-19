@@ -1,9 +1,10 @@
-import { MainSpecialist } from "@/types";
-import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+
 import Title from "../Title";
 import Button from "../Button";
-import Image from "next/image";
-import Link from "next/link";
+
+import { MainSpecialist } from "@/types";
 
 type Props = {
   data: MainSpecialist[];

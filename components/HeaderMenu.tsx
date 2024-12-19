@@ -1,18 +1,22 @@
 "use client";
 
-import useClickOutside from "@/hooks/useClickOutside";
-import { MenuIcon, XIcon } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
+
 import { AnimatePresence, motion } from "motion/react";
-import { HeaderLinksType } from "@/types";
+import { MenuIcon, XIcon } from "lucide-react";
+
+import useClickOutside from "@/hooks/useClickOutside";
+
 import {
   Accordion,
   AccordionItem,
   AccordionContent,
   AccordionTrigger,
 } from "./ui/accordion";
+
+import { HeaderLinksType } from "@/types";
 
 type HeaderMenuType = {
   links: HeaderLinksType[];

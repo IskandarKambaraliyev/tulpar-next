@@ -1,9 +1,10 @@
-import { MainService } from "@/types";
-import React from "react";
-import Title from "../Title";
-import Image from "next/image";
-import Button from "../Button";
 import Link from "next/link";
+import Image from "next/image";
+
+import Title from "../Title";
+import Button from "../Button";
+
+import { MainService } from "@/types";
 
 type Props = {
   data: MainService[];

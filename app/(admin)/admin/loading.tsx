@@ -1,5 +1,3 @@
-import React from "react";
-
 const AdminPageLoading = () => {
   return (
     <div className="container grid grid-cols-1 md:grid-cols-2 gap-8">

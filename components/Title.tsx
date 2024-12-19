@@ -1,8 +1,8 @@
+import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import React from "react";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 const Title = ({ children, className }: Props) => {

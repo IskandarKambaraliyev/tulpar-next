@@ -1,13 +1,16 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { MainNewsType, NewsType } from "@/types";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { parseAsStringEnum, useQueryState } from "nuqs";
-import React, { useEffect } from "react";
-import Title from "../Title";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { parseAsStringEnum, useQueryState } from "nuqs";
+
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Title from "../Title";
+
+import { cn } from "@/lib/utils";
+
+import { MainNewsType, NewsType } from "@/types";
 
 const parseNewsType = parseAsStringEnum<NewsType>(["all", "news", "tips"]);
 
@@ -19,7 +22,7 @@ const News = ({ data }: Props) => {
     "type",
     parseNewsType.withDefault("all")
   );
-  const [type, setType] = React.useState<NewsType>(queryType);
+  const [type, setType] = useState<NewsType>(queryType);
 
   const [parent] = useAutoAnimate();
 

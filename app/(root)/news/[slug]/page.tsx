@@ -1,5 +1,7 @@
 import { Detail, NewsHero } from "@/components/news";
+
 import prisma from "@/lib/db";
+
 import { Metadata } from "next";
 
 export const dynamicParams = true;

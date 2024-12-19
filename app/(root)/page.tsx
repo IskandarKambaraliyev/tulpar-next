@@ -1,9 +1,10 @@
-import Brands from "@/components/Brands";
+import { Metadata } from "next";
+
 import { Hero, Services, Specialists, News, Faq } from "@/components/main";
 import PriceList from "@/components/PriceList";
 import Reports from "@/components/Reports";
+
 import prisma from "@/lib/db";
-import { Metadata } from "next";
 
 const ogImageTitle = `${
   process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"

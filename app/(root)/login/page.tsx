@@ -1,9 +1,10 @@
 "use client";
 
-import loginUser from "@/app/actions/login";
-import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+import { useSearchParams } from "next/navigation";
+
+import loginUser from "@/app/actions/login";
 
 type FieldErrors = {
   email?: string[];

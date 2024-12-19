@@ -1,15 +1,18 @@
 "use client";
 
-import { MediaType, ReportType } from "@/types";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { parseAsStringEnum, useQueryState } from "nuqs";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { CirclePlay } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
 import Title from "./Title";
 import Button from "./Button";
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import Image from "next/image";
-import { CirclePlay } from "lucide-react";
 import Lines from "./Lines";
-import { parseAsStringEnum, useQueryState } from "nuqs";
+
+import { MediaType, ReportType } from "@/types";
 
 type Props = {
   data: ReportType[];

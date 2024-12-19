@@ -1,9 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { LoaderCircle } from "lucide-react";
-import Link from "next/link";
 import { ReactNode } from "react";
+import Link from "next/link";
+
+import { LoaderCircle } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 type Props = {
   children: ReactNode;

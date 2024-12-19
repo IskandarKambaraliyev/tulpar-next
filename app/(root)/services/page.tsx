@@ -2,9 +2,10 @@ import PriceList from "@/components/PriceList";
 import Reports from "@/components/Reports";
 import { Advantages, Hero, Services } from "@/components/services";
 import Title from "@/components/Title";
+
 import prisma from "@/lib/db";
+
 import { Metadata } from "next";
-import React from "react";
 
 const ogImageTitle = `${
   process.env.ORIGIN_URL || "https://tulpar-next.vercel.app"

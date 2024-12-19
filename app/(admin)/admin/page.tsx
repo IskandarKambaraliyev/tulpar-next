@@ -1,6 +1,8 @@
-import prisma from "@/lib/db";
-import { CircleFadingPlus } from "lucide-react";
 import Link from "next/link";
+
+import { CircleFadingPlus } from "lucide-react";
+
+import prisma from "@/lib/db";
 
 export default async function AdminPage() {
   const services = await prisma.service.findMany({

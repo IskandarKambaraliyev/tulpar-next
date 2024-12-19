@@ -1,7 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode, useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
+
+import sendMessage from "@/app/actions/sendMessage";
+
 import {
   Dialog,
   DialogContent,
@@ -12,11 +16,6 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import Button from "./Button";
-import sendMessage from "@/app/actions/sendMessage";
-import { ReactNode, useActionState } from "react";
-import { useFormStatus } from "react-dom";
-
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
 
 type FieldErrors = {
   name?: string[];

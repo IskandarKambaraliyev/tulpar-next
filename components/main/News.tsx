@@ -1,13 +1,16 @@
 "use client";
 
-import { MainNewsType, NewsType } from "@/types";
-import React, { useState } from "react";
-import Title from "../Title";
-import Button from "../Button";
-import { cn } from "@/lib/utils";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Title from "../Title";
+import Button from "../Button";
+
+import { cn } from "@/lib/utils";
+
+import { MainNewsType, NewsType } from "@/types";
 
 type Props = {
   data: MainNewsType[];

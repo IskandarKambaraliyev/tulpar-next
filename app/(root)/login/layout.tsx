@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
+import { Suspense, ReactNode } from "react";
 
-const LoginLayout = ({ children }: { children: React.ReactNode }) => {
+const LoginLayout = ({ children }: { children: ReactNode }) => {
   return <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>;
 };
 
