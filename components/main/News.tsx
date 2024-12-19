@@ -1,6 +1,6 @@
 "use client";
 
-import { MianNewsType, NewsType } from "@/types";
+import { MainNewsType, NewsType } from "@/types";
 import React, { useState } from "react";
 import Title from "../Title";
 import Button from "../Button";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 type Props = {
-  data: MianNewsType[];
+  data: MainNewsType[];
 };
 const News = ({ data }: Props) => {
   const [type, setType] = useState<NewsType>("all");
@@ -88,7 +88,7 @@ const News = ({ data }: Props) => {
 
 export default News;
 
-const Card = (props: MianNewsType) => {
+const Card = (props: MainNewsType) => {
   return (
     <Link href={`/news/${props.slug}`} className="flex flex-col group">
       <div className="w-full aspect-[3/2] overflow-hidden relative">

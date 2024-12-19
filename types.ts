@@ -55,7 +55,7 @@ export type ReportType = {
   is_video: boolean;
 };
 
-export type MianNewsType = {
+export type MainNewsType = {
   id: string;
   slug: string;
   title: string;
@@ -83,3 +83,15 @@ export type ServicesServiceType = {
 export type MediaType = "all" | "photo" | "video";
 
 export type NewsType = "all" | "news" | "tips";
+
+export type NewsDetailType = {
+  id: string;
+  slug: string;
+  title: string;
+  image: string;
+  description: string;
+  content: string;
+  is_tip: boolean;
+  order: number;
+  createdAt: Date;
+};

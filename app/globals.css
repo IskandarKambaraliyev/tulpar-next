@@ -131,5 +131,42 @@ body {
     ol {
       @apply flex flex-col gap-2;
     }
+
+    img {
+      display: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply font-bold;
+    }
+
+    h1 {
+      @apply text-3xl md:text-4xl;
+    }
+
+    h2 {
+      @apply text-2xl md:text-3xl;
+    }
+
+    h3 {
+      @apply text-xl md:text-2xl;
+    }
+
+    h4 {
+      @apply text-lg md:text-xl;
+    }
+
+    h5 {
+      @apply text-base md:text-lg;
+    }
+
+    h6 {
+      @apply text-sm md:text-base;
+    }
   }
 }

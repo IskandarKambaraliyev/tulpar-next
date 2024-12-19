@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Title from "../Title";
+import Description from "../Description";
 
 const Hero = () => {
   return (
@@ -19,12 +20,12 @@ const Hero = () => {
         <div className="container space-y-5">
           <Title>Our Services</Title>
 
-          <p className="font-medium max-w-2xl">
+          <Description>
             An age-appropriate comprehensive medical examination provides an
             accurate picture of the patient's health status and is tailored to
             each patient's individual needs, based on their risks, professional
             activities and personal situation.
-          </p>
+          </Description>
         </div>
       </div>
     </section>

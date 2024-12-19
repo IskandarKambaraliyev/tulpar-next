@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Title from "../Title";
+import Description from "../Description";
 
 type Props = {
   title: string;
@@ -23,7 +24,7 @@ const ServiceHero = ({ title, description }: Props) => {
         <div className="container space-y-5">
           <Title>{title}</Title>
 
-          <p className="font-medium max-w-2xl">{description}</p>
+          <Description>{description}</Description>
         </div>
       </div>
     </section>
