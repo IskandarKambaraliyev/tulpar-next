@@ -95,3 +95,16 @@ export type NewsDetailType = {
   order: number;
   createdAt: Date;
 };
+
+export type SpecialistsType = {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  job_title: string;
+  specialty: string;
+  career: string;
+  experience: string;
+  order: number;
+  createdAt: Date;
+};

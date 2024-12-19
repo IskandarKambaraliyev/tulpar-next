@@ -9,7 +9,7 @@ const Title = ({ children, className }: Props) => {
   return (
     <h3
       className={cn(
-        "text-xl md:text-4xl lg:text-5xl font-bold uppercase max-w-2xl",
+        "text-xl md:text-4xl lg:text-5xl font-bold uppercase max-w-3xl",
         className
       )}
     >
