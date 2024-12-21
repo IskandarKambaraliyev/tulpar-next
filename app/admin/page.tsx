@@ -144,43 +144,45 @@ export default async function AdminPage() {
     },
   ];
   return (
-    <div className="container grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-      {links.map((link) => (
-        <div
-          className="md:col-span-1 flex flex-col gap-4 p-4 bg-white rounded-2xl border border-gray-200"
-          key={link.href}
-        >
-          <div className="flex items-center gap-4 justify-between">
-            <Link
-              href={link.href}
-              className="flex-1 block text-xl md:text-2xl font-semibold hover:text-main-blue"
-              title={`${link.title} (${link.count})`}
-            >
-              {link.title} ({link.count})
-            </Link>
-
-            <Link
-              href={link.addHref}
-              className="hover:text-main-blue"
-              title="Add new data"
-            >
-              <CircleFadingPlus className="md:size-8" />
-            </Link>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            {link.children.map((child) => (
+    <>
+      <div className="container grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+        {links.map((link) => (
+          <div
+            className="md:col-span-1 flex flex-col gap-4 p-4 bg-white rounded-2xl border border-gray-200"
+            key={link.href}
+          >
+            <div className="flex items-center gap-4 justify-between">
               <Link
-                href={child.href}
-                key={child.href}
-                className="p-4 rounded-lg border border-gray-200 hover:bg-gray-100"
+                href={link.href}
+                className="flex-1 block text-xl md:text-2xl font-semibold hover:text-main-blue"
+                title={`${link.title} (${link.count})`}
               >
-                {child.title}
+                {link.title} ({link.count})
               </Link>
-            ))}
+
+              <Link
+                href={link.addHref}
+                className="hover:text-main-blue"
+                title="Add new data"
+              >
+                <CircleFadingPlus className="md:size-8" />
+              </Link>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {link.children.map((child) => (
+                <Link
+                  href={child.href}
+                  key={child.href}
+                  className="p-4 rounded-lg border border-gray-200 hover:bg-gray-100"
+                >
+                  {child.title}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }

@@ -96,7 +96,7 @@ const Reorder = ({ initial }: Props) => {
     // console.log(selected);
     try {
       setDelLoading(true);
-      await fetch("/api/delete/services", {
+      await fetch("/api/admin/delete/services", {
         method: "POST",
         body: JSON.stringify({ services: selected }),
         headers: { "Content-Type": "application/json" },

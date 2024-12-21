@@ -1,12 +1,19 @@
 import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
+import useCheckAdmin from "@/hooks/useCheckAdmin";
 
 export async function POST(req: Request) {
-  const { services } = await req.json();
+  const checkAdmin = await useCheckAdmin();
 
-  if (!services || !Array.isArray(services)) {
+  if (!checkAdmin.isOk) {
+    return NextResponse.json({ message: checkAdmin.error }, { status: 401 });
+  }
+
+  const { items } = await req.json();
+
+  if (!items || !Array.isArray(items)) {
     return NextResponse.json(
-      { message: "Services list is not provided" },
+      { message: "items list is not provided" },
       { status: 400 }
     );
   }
@@ -16,7 +23,7 @@ export async function POST(req: Request) {
     select: { id: true, order: true },
   });
 
-  for (const service of services) {
+  for (const service of items) {
     await prisma.service.update({
       where: { id: service.id },
       data: { order: service.order },
@@ -43,6 +50,6 @@ export async function POST(req: Request) {
     difference,
     oldServices,
     updatedServices,
-    providedServices: services,
+    providedServices: items,
   });
 }

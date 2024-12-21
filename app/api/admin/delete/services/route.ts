@@ -1,17 +1,23 @@
-import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
+import useCheckAdmin from "@/hooks/useCheckAdmin";
+import prisma from "@/lib/db";
 
 export async function POST(req: Request) {
-  const { services } = await req.json();
+  const checkAdmin = await useCheckAdmin();
 
-  if (!services || services.length === 0) {
+  if (!checkAdmin.isOk) {
+    return NextResponse.json({ message: checkAdmin.error }, { status: 401 });
+  }
+
+  const { items } = await req.json();
+
+  if (!items || items.length === 0) {
     return NextResponse.json({ message: "No services to delete" });
   }
-  console.log(services);
 
   // Delete all services
   await Promise.all(
-    services.map((serviceId: string) =>
+    items.map((serviceId: string) =>
       prisma.service.delete({ where: { id: serviceId } })
     )
   );
@@ -23,9 +29,9 @@ export async function POST(req: Request) {
   });
 
   await Promise.all(
-    remaining.map((service, index) =>
+    remaining.map((item, index) =>
       prisma.service.update({
-        where: { id: service.id },
+        where: { id: item.id },
         data: { order: index },
       })
     )

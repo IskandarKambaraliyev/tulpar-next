@@ -23,7 +23,7 @@ export default async function loginUser(prevState: any, formData: FormData) {
     };
   } else {
     const origin = process.env.ORIGIN_URL || "http://localhost:3000";
-    const res = await fetch(`${origin}/api/login`, {
+    const res = await fetch(`${origin}/api/admin/login`, {
       method: "POST",
       body: JSON.stringify({
         email: validatedFields.data.email,
