@@ -1,18 +1,11 @@
 import AddForm from "@/components/admin/AddForm";
 import prisma from "@/lib/db";
+import { AllowedTypes } from "@/types";
 import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
-type AllowedTypes =
-  | "service"
-  | "specialists"
-  | "newsAndTips"
-  | "messages"
-  | "priceList"
-  | "questionAnswers"
-  | "reports";
 
 export default async function CatchAllPage({ params }: Props) {
   const { slug } = await params;
@@ -72,7 +65,7 @@ async function AddPage(type: AllowedTypes) {
 
   const dataFields = useDataFields(type);
   return (
-    <div className="flex-1 flex-center">
+    <div className="flex-1 flex-center pt-8 pb-20">
       <AddForm
         type={type}
         data={dataFields}

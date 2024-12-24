@@ -108,3 +108,12 @@ export type SpecialistsType = {
   order: number;
   createdAt: Date;
 };
+
+export type AllowedTypes =
+  | "service"
+  | "specialists"
+  | "newsAndTips"
+  | "messages"
+  | "priceList"
+  | "questionAnswers"
+  | "reports";

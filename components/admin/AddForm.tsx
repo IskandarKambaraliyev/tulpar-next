@@ -2,18 +2,13 @@
 
 import Button from "../Button";
 import Input from "./Input";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { SelectGroup } from "@radix-ui/react-select";
+import Switch from "./Switch";
+import addData from "@/app/actions/addData";
+import { useFormStatus } from "react-dom";
+import { redirect, useSearchParams } from "next/navigation";
 
 type Props = {
   type: string;
@@ -21,30 +16,53 @@ type Props = {
   services: [] | { id: string; title: string }[];
   priceList: [] | { id: string; name: string }[];
 };
+
+const initialState = {} as {
+  error: string | null;
+  success?: boolean;
+  message?: string;
+};
 const AddForm = ({ type, data, services, priceList }: Props) => {
+  const [state, formAction] = useActionState(addData, initialState);
   const [mounted, setMounted] = useState(false);
   const [content, setContent] = useState("");
+
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/admin";
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (state.success) {
+      setTimeout(() => {
+        redirect(redirectUrl);
+      }, 2000);
+    }
+  }, [state]);
   if (!data || !mounted || typeof document === "undefined") return null;
   return (
     <form
-      action=""
+      action={formAction}
       className="flex flex-col space-y-8 max-w-xl w-[calc(100%-2rem)] mx-auto p-4 rounded-3xl border border-gray-200 bg-white"
     >
-      <h1 className="text-center text-2xl lg:text-2xl font-bold">{`Add a ${useTitle(
-        type
-      )}`}</h1>
+      <div className="space-y-1">
+        <h1 className="text-center text-2xl lg:text-2xl font-bold">{`Add a ${useTitle(
+          type
+        )}`}</h1>
+        {state.error && (
+          <p className="text-main-red text-center">{state.error}</p>
+        )}
+        {state.success && (
+          <p className="text-main-green text-center">{state.message}</p>
+        )}
+      </div>
       <div className="flex flex-col space-y-4">
         {Object.entries(data).map(([key, value]) => {
           if (value === "html") {
             return (
-              <div
-                key={key}
-                className="px-4 py-2 space-y-4 rounded-2xl border border-gray-200 bg-white"
-              >
+              <div key={key} className="space-y-1">
                 <p>{`${key} field*`}</p>
                 <Editor
                   apiKey="013k8cur6yywlejp4fiyufmhwx2fvnlkb8lbcp8ql75v6gho"
@@ -55,7 +73,6 @@ const AddForm = ({ type, data, services, priceList }: Props) => {
                     toolbar:
                       "undo redo | styles | bold italic | alignleft aligncenter alignright | bullist numlist | code | link image | heading",
                   }}
-                  initialValue={`<h1>${key}</h1>`}
                   onEditorChange={(content) => setContent(content)}
                 />
 
@@ -63,37 +80,29 @@ const AddForm = ({ type, data, services, priceList }: Props) => {
               </div>
             );
           } else if (value === "boolean") {
-            return (
-              <Select key={key} name={key}>
-                <SelectTrigger>
-                  <SelectValue placeholder={key} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>{key}</SelectLabel>
-                    <SelectItem value="true">true</SelectItem>
-                    <SelectItem value="false">false</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            );
+            return <Switch name={key} label={key} key={key} />;
           }
-          return (
-            // <tr key={key}>
-            //   <td>{key}</td>
-            //   <td>{typeof value}</td>
-            // </tr>
-            <Input name={key} key={key} placeholder={key} />
-          );
+          return <Input name={key} key={key} label={key} />;
         })}
+
+        <input type="hidden" name="type" defaultValue={type} />
       </div>
 
-      <Button type="submit">Submit</Button>
+      <SubmitBtn />
     </form>
   );
 };
 
 export default AddForm;
+
+const SubmitBtn = () => {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" className="!py-5" loading={pending}>
+      Submit
+    </Button>
+  );
+};
 
 const useTitle = (type: string) => {
   switch (type) {
