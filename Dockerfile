@@ -7,7 +7,11 @@ RUN apk add --no-cache openssl
 # Set the working directory
 WORKDIR /app
 
-# Copy the Prisma schema and prisma directory
+# Set the DATABASE_URL environment variable
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
+# Copy Prisma schema and the prisma directory
 COPY prisma ./prisma/
 
 # Copy package.json and package-lock.json
