@@ -32,18 +32,15 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'npm run build'
+                sh 'docker build -t tulpar-next .'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Docker Container') {
             steps {
-                sh '''
-                docker build -t tulpar-next .
-                docker run -d -p 3000:3000 tulpar-next
-                '''
+                sh 'docker run -d -p 3000:3000 --name tulpar-next-container tulpar-next'
             }
         }
     }
