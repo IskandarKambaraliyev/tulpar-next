@@ -21,11 +21,16 @@ pipeline {
                 script {
                     def envFile = readFile '.env'
                     def envVars = envFile.split('\n').collectEntries { line ->
-                        def pair = line.tokenize('=')
-                        if (pair.size() == 2) {
-                            [(pair[0].trim()): pair[1].trim()]
+                        if (line.trim() && !line.startsWith('#')) { // Ignore blank lines and comments
+                            def index = line.indexOf('=')
+                            if (index == -1) {
+                                error("Invalid line in .env file: ${line}")
+                            }
+                            def key = line.substring(0, index).trim()
+                            def value = line.substring(index + 1).trim()
+                            [(key): value]
                         } else {
-                            error("Invalid line in .env file: ${line}")
+                            [:] // Ignore lines that are comments or blank
                         }
                     }
                     envVars.each { key, value ->
