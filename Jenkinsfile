@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs "NodeJS" // Use the name you configured in Manage Jenkins > Global Tool Configuration
-    }
-
-    environment {
-        PATH = "$PATH:/usr/local/bin" // Add the Node.js binary path to the environment
+        nodejs "NodeJS"
     }
 
     stages {
@@ -16,9 +12,28 @@ pipeline {
             }
         }
 
+        stage('Load Environment Variables') {
+            steps {
+                script {
+                    def envFile = readFile('.env')
+                    def envVars = envFile.split('\n').collectEntries {
+                        def pair = it.split('=')
+                        [(pair[0]): pair[1]]
+                    }
+                    envVars.each { k, v -> env[k] = v }
+                }
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
+            }
+        }
+
+        stage('Run Prisma Migrate') {
+            steps {
+                sh 'npx prisma migrate dev'
             }
         }
 
