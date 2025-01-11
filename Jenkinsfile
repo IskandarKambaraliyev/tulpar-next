@@ -5,6 +5,10 @@ pipeline {
         nodejs "NodeJS"
     }
 
+    environment {
+        PATH = "$PATH:/usr/local/bin"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -15,12 +19,18 @@ pipeline {
         stage('Load Environment Variables') {
             steps {
                 script {
-                    def envFile = readFile('.env')
-                    def envVars = envFile.split('\n').collectEntries {
-                        def pair = it.split('=')
-                        [(pair[0]): pair[1]]
+                    def envFile = readFile '.env'
+                    def envVars = envFile.split('\n').collectEntries { line ->
+                        def pair = line.tokenize('=')
+                        if (pair.size() == 2) {
+                            [(pair[0].trim()): pair[1].trim()]
+                        } else {
+                            error("Invalid line in .env file: ${line}")
+                        }
                     }
-                    envVars.each { k, v -> env[k] = v }
+                    envVars.each { key, value ->
+                        env[key] = value
+                    }
                 }
             }
         }
