@@ -1,19 +1,25 @@
-# Use the official Node.js 18 image as the base (compatible with Prisma and Next.js)
+# Use Node.js 18-alpine as the base image
 FROM node:18-alpine
 
-# Set the working directory in the container
+# Install OpenSSL for Prisma
+RUN apk add --no-cache openssl
+
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json files
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies (resolve peer dependencies)
+RUN npm install --legacy-peer-deps
+
+# Copy Prisma schema and the prisma directory
+COPY prisma ./prisma/
 
 # Copy the rest of the application code
 COPY . .
 
-# Build the application
+# Build the Next.js application
 RUN npm run build
 
 # Expose the port the app runs on
