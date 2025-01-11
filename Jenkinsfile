@@ -18,6 +18,13 @@ pipeline {
             }
         }
 
+        stage('Debug PATH') {
+            steps {
+                sh 'echo $PATH'
+                sh 'docker --version'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
