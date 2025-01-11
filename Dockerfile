@@ -7,18 +7,17 @@ RUN apk add --no-cache openssl
 # Set the working directory
 WORKDIR /app
 
-# Set the DATABASE_URL environment variable
-ARG DATABASE_URL
-ENV DATABASE_URL=$DATABASE_URL
-
-# Copy Prisma schema and the prisma directory
+# Copy the Prisma schema and prisma directory
 COPY prisma ./prisma/
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies (resolve peer dependencies)
+# Install dependencies
 RUN npm install --legacy-peer-deps
+
+# Generate Prisma Client binaries for the correct platform
+RUN npx prisma generate
 
 # Copy the rest of the application code
 COPY . .
