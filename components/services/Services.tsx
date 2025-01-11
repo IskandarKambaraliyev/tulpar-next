@@ -1,18 +1,30 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 
 import { ServicesServiceType } from "@/types";
 
 import styles from "./styles.module.css";
+import { cn } from "@/lib/utils";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 type Props = {
   data: ServicesServiceType[];
+  width?: number;
 };
-const Services = ({ data }: Props) => {
+const Services = ({ data, width }: Props) => {
+  const [parent] = useAutoAnimate();
   return (
     <section className="bg-main-dark-blue text-white">
       <div
-        className={`${styles.servicesContainer} container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4`}
+        className={cn("container grid", styles.servicesContainer, {
+          "grid-cols-1 sm:grid-cols-2 md:grid-cols-4": !width,
+          "grid-cols-4": width && width,
+          "grid-cols-2": width && width < 768,
+          "grid-cols-1": width && width < 640,
+        })}
+        ref={parent}
       >
         {data.map((service) => (
           <Service key={service.id} {...service} />

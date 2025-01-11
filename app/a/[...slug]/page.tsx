@@ -48,17 +48,17 @@ async function AddPage(type: AllowedTypes) {
   }[] = [];
 
   if (type === "service") {
-    servicesData = await prisma.service.findMany({
-      select: {
-        id: true,
-        title: true,
-      },
-    });
-  } else if (type === "priceList") {
     priceListData = await prisma.priceList.findMany({
       select: {
         id: true,
         name: true,
+      },
+    });
+  } else if (type === "priceList") {
+    servicesData = await prisma.service.findMany({
+      select: {
+        id: true,
+        title: true,
       },
     });
   }

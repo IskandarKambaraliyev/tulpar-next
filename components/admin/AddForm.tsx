@@ -9,6 +9,7 @@ import Switch from "./Switch";
 import addData from "@/app/actions/addData";
 import { useFormStatus } from "react-dom";
 import { redirect, useSearchParams } from "next/navigation";
+import SelectId from "./SelectId";
 
 type Props = {
   type: string;
@@ -84,6 +85,17 @@ const AddForm = ({ type, data, services, priceList }: Props) => {
           }
           return <Input name={key} key={key} label={key} />;
         })}
+
+        {(type === "service" || type === "priceList") && (
+          <SelectId
+            label={
+              type === "service"
+                ? "Connect price lists to this service"
+                : "Connect services to this price list"
+            }
+            list={type === "service" ? priceList : services}
+          />
+        )}
 
         <input type="hidden" name="type" defaultValue={type} />
       </div>

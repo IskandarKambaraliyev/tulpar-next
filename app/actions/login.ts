@@ -38,7 +38,7 @@ export default async function loginUser(prevState: any, formData: FormData) {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         value: data.token,
-        maxAge: 3600,
+        maxAge: 3600 * 24,
         sameSite: "strict",
       });
 
