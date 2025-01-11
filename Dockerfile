@@ -1,13 +1,9 @@
-# Use Node.js 18-alpine as the base image
-FROM node:18-alpine
-
-# Install OpenSSL for Prisma
-RUN apk add --no-cache openssl
+FROM node:18
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the Prisma schema and prisma directory
+# Copy Prisma schema and the prisma directory
 COPY prisma ./prisma/
 
 # Copy package.json and package-lock.json
