@@ -6,37 +6,15 @@ pipeline {
     }
 
     environment {
-        PATH = "$PATH:/usr/local/bin"
+        PRISMA_CLIENT_ENGINE_TYPE = "binary"
+        DEBUG = "prisma:*"
+        DATABASE_URL = "postgres://neondb_owner:BM5fAdnPgI1z@ep-curly-shape-a2bm3k1x-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&connect_timeout=30"
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
-            }
-        }
-
-        stage('Load Environment Variables') {
-            steps {
-                script {
-                    def envFile = readFile '.env'
-                    def envVars = envFile.split('\n').collectEntries { line ->
-                        if (line.trim() && !line.startsWith('#')) { // Ignore blank lines and comments
-                            def index = line.indexOf('=')
-                            if (index == -1) {
-                                error("Invalid line in .env file: ${line}")
-                            }
-                            def key = line.substring(0, index).trim()
-                            def value = line.substring(index + 1).trim()
-                            [(key): value]
-                        } else {
-                            [:] // Ignore lines that are comments or blank
-                        }
-                    }
-                    envVars.each { key, value ->
-                        env[key] = value
-                    }
-                }
             }
         }
 
@@ -48,7 +26,9 @@ pipeline {
 
         stage('Run Prisma Migrate') {
             steps {
-                sh 'npx prisma migrate dev'
+                retry(3) { // Retry up to 3 times
+                    sh 'npx prisma migrate deploy'
+                }
             }
         }
 
